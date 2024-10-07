@@ -29,5 +29,21 @@ public class Main {
         // Verificar si las operaciones fueron exitosas
         System.out.println("Retiro en cuenta 1 fue " + (successWithdraw ? "exitoso" : "fallido"));
         System.out.println("Retiro en cuenta 2 fue " + (successWithdraw2 ? "exitoso" : "fallido"));
+
+        // Realizar operaciones de transferencia de fondos
+        boolean successTransfer = account1.transfer(500, account2); // Transferir 500 de la cuenta 1 a la cuenta 2
+        boolean successTransfer2 = account2.transfer(10000, account1); // Intentar transferir 10000 de la cuenta 2 a la cuenta 1 (debería fallar)
+
+        // Imprimir aclaración de realización de las transferencias
+        System.out.println("Al realizar las operaciones de transferencia, el nuevo saldo de las cuentas es:");
+
+        // Imprimir detalles de las cuentas, con su nuevo saldo luego de las operaciones de transferencia
+        System.out.println("Balance de cuenta 1: " + account1.getBalance());
+        System.out.println("Balance de cuenta 2: " + account2.getBalance());
+
+        // Verificar si las operaciones fueron exitosas
+        System.out.println("Transferencia de cuenta 1 a cuenta 2 fue " + (successTransfer ? "exitoso" : "fallido"));
+        System.out.println("Transferencia de cuenta 2 a cuenta 1 fue " + (successTransfer2 ? "exitoso" : "fallido"));
+
     }
 }
