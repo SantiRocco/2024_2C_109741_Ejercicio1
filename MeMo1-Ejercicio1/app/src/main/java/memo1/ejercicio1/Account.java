@@ -58,4 +58,17 @@ public class Account {
         return true;
     }
 
+    public boolean transfer(double amount, Account otherAccount) {
+        if ( amount <= 0 || this.getBalance() < amount ) {
+            return false; 
+        } else if ( otherAccount.getCbu() == null ) {
+            return false;
+        } else if ( this.getCbu().equals(otherAccount.getCbu()) ) {
+            return false;
+        }
+        this.withdraw(amount);
+        otherAccount.deposit(amount);
+        return true;
+    }
+
 }

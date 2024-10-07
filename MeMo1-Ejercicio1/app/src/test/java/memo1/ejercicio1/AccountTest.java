@@ -75,4 +75,59 @@ class AccountTest {
         assertTrue(account.withdraw(100.0));
         assertEquals(0.0, account.getBalance());
     }
+
+    @Test
+    void transferShouldDecreaseSenderAccountBalanceAndIncreaseReceiverAccountBalance() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account receiverAccount = new Account(111222333L, 1000.0);
+        assertTrue(senderAccount.transfer(100.0, receiverAccount));
+        assertEquals(900.0, senderAccount.getBalance());
+        assertEquals(1100.0, receiverAccount.getBalance());
+    }
+
+    @Test
+    void transferShouldReturnFalseForAmountHigherThanBalanceAvailable() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account receiverAccount = new Account(111222333L, 1000.0);
+        assertFalse(senderAccount.transfer(2000.0, receiverAccount));
+        assertEquals(1000.0, senderAccount.getBalance());
+        assertEquals(1000.0, receiverAccount.getBalance());
+    }
+
+    @Test
+    void transferShouldReturnFalseForNegativeAmount() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account receiverAccount = new Account(111222333L, 1000.0);
+        assertFalse(senderAccount.transfer(-100.0, receiverAccount));
+        assertEquals(1000.0, senderAccount.getBalance());
+        assertEquals(1000.0, receiverAccount.getBalance());
+    }
+
+    @Test
+    void transferShouldReturnFalseForZeroAmount() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account receiverAccount = new Account(111222333L, 1000.0);
+        assertFalse(senderAccount.transfer(0.0, receiverAccount));
+        assertEquals(1000.0, senderAccount.getBalance());
+        assertEquals(1000.0, receiverAccount.getBalance());
+    }
+
+    @Test
+    void transferShouldReturnFalseWhenTransferringToAccountWithNoCbu() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account accountWithNoCbu = new Account(1000.0);
+        assertFalse(senderAccount.transfer(100.0, accountWithNoCbu));
+        assertEquals(1000.0, senderAccount.getBalance());
+        assertEquals(1000.0, accountWithNoCbu.getBalance());
+    }
+
+    @Test
+    void transferShouldReturnFalseWhenTransferringToSameAccount() {
+        Account senderAccount = new Account(123456789L, 1000.0);
+        Account receiverAccount = senderAccount;
+        assertFalse(senderAccount.transfer(100.0, receiverAccount));
+        assertEquals(1000.0, senderAccount.getBalance());
+        assertEquals(1000.0, receiverAccount.getBalance());
+    }
+
 }
