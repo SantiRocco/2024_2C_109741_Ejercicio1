@@ -21,32 +21,36 @@ public class AccountSteps {
 
     @Given("I create an account with CBU {long}, alias {string} and a balance of {double}")
     public void createAccountWithInitialBalance(long cbu, String alias, double balance) {
-        account = new Account(cbu, alias, balance);
+        Client client = new Client(12345678, "Fernandez", "Martin", "2000-5-17", "Av. Acoyte 245");
+        account = new Account(cbu, alias, balance, client);
     }
 
     @Given("An account with CBU {long}, alias {string} and a balance of {double}")
     public void anAccountWithCBUAndBalance(long cbu, String alias, double balance) {
-        account = new Account(cbu, alias, balance);
+        Client client = new Client(12345678, "Fernandez", "Martin", "2000-5-17", "Av. Acoyte 245");
+        account = new Account(cbu, alias, balance, client);
     }
 
     @Given("A sender account with CBU {long}, alias {string} and a balance of {double}")
     public void aSenderAccountWithCBUAndBalance(long cbu, String alias, double balance) {
-        account = new Account(cbu, alias, balance);
+        Client client = new Client(12345678, "Fernandez", "Martin", "2000-5-17", "Av. Acoyte 245");
+        account = new Account(cbu, alias, balance, client);
     }
 
     @Given("A receiver account with CBU {long}, alias {string} and a balance of {double}")
     public void aReceiverAccountWithCBUAndBalance(long cbu, String alias, double balance) {
-        transferToAccount = new Account(cbu, alias, balance);
+        Client client = new Client(12345678, "Fernandez", "Martin", "2000-5-17", "Av. Acoyte 245");
+        transferToAccount = new Account(cbu, alias, balance, client);
     }
 
     @Given("A receiver account with no CBU and alias {string}")
     public void anAccountWithNoCBU(String alias) {
-        transferToAccount = new Account(null, alias);
+        //transferToAccount = new Account(null, alias);
     }
 
     @Given("A receiver account with CBU {long} and no alias")
     public void anAccountWithNoCBU(Long cbu) {
-        transferToAccount = new Account(cbu, null);
+        //transferToAccount = new Account(cbu, null);
     }
 
     @Given("The same account as receiver")

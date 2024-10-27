@@ -1,30 +1,38 @@
 package memo1.ejercicio1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Account {
     private Long cbu;
     private String alias;
     private double balance;
+    private Client owner;
+    private Map<Integer, Client> coOwners;
 
     public Account() {
         this.balance = 0.0;
     }
 
-    public Account(Long cbu, String alias) {
+    public Account(Long cbu, String alias, Client Owner) {
         if (balance < 0) {
             throw new IllegalArgumentException("Balance cannot be negative.");
         }
         this.cbu = cbu;
         this.alias = alias;
         this.balance = 0.0;
+        this.coOwners = new HashMap<Integer, Client>();
     }
 
-    public Account(Long cbu, String alias, double balance) {
+    public Account(Long cbu, String alias, double balance, Client owner) {
         if (balance < 0) {
             throw new IllegalArgumentException("Balance cannot be negative.");
         }
         this.cbu = cbu;
         this.alias = alias;
         this.balance = balance;
+        this.owner = owner;
+        this.coOwners = new HashMap<Integer, Client>();
     }
 
     public Long getCbu() {
@@ -52,6 +60,23 @@ public class Account {
             throw new IllegalArgumentException("Balance cannot be negative.");
         }
         this.balance = balance;
+    }
+
+    public Client getOwner() {
+        return owner;
+    }
+
+    public boolean isCoOwner(Client coOwner) {
+        Client result = coOwners.get(coOwner.getDni());
+        return result != null;
+    }
+
+    
+    public void setNewCoOwner(Client newCoOwner) {
+        if (this.isCoOwner(newCoOwner) || newCoOwner.getDni() == owner.getDni() ){
+            throw new IllegalArgumentException("Client already included in account.");
+        }
+        coOwners.put(newCoOwner.getDni(), newCoOwner);
     }
 
     public boolean withdraw(double amount) {

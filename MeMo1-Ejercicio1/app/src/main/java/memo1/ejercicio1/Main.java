@@ -9,7 +9,8 @@ public class Main {
         account1.setBalance(1000.0); // Establecer el balance inicial
 
         // Crear una instancia de Account usando el constructor con saldo inicial
-        Account account2 = new Account(987654321L, "iAmAccount2", 500.0);
+        Client client = new Client(20000000, "Costas", "Ignacio", "2003-3-4", "Av. Rivadavia 4523");
+        Account account2 = new Account(987654321L, "iAmAccount2", 500.0, client);
 
         // Realizar operaciones de depósito y retiro
         account1.deposit(200.0);  // Depositar 200 en la cuenta 1
