@@ -5,10 +5,11 @@ public class Main {
         // Crear una instancia de Account usando el constructor sin argumentos
         Account account1 = new Account();
         account1.setCbu(123456789L); // Asignar un CBU
+        account1.setAlias("iAmAccount1"); // Asignar un alias
         account1.setBalance(1000.0); // Establecer el balance inicial
 
         // Crear una instancia de Account usando el constructor con saldo inicial
-        Account account2 = new Account(987654321L, 500.0);
+        Account account2 = new Account(987654321L, "iAmAccount2", 500.0);
 
         // Realizar operaciones de depósito y retiro
         account1.deposit(200.0);  // Depositar 200 en la cuenta 1
@@ -20,10 +21,12 @@ public class Main {
         // Imprimir detalles de las cuentas
         System.out.println("Cuenta 1:");
         System.out.println("CBU: " + account1.getCbu());
+        System.out.println("Alias: " + account1.getAlias());
         System.out.println("Balance: " + account1.getBalance());
 
         System.out.println("Cuenta 2:");
         System.out.println("CBU: " + account2.getCbu());
+        System.out.println("Alias: " + account2.getAlias());
         System.out.println("Balance: " + account2.getBalance());
 
         // Verificar si las operaciones fueron exitosas

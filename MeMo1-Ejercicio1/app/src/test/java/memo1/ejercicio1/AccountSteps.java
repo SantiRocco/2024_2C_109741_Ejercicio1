@@ -12,40 +12,46 @@ public class AccountSteps {
     private Account transferToAccount;
     private boolean operationResult;
 
-    @Given("I create an account with CBU {long}")
-    public void createAccountWithDefaultBalance(long cbu) {
+    @Given("I create an account with CBU {long} and alias {string}")
+    public void createAccountWithDefaultBalance(long cbu, String alias) {
         account = new Account();
         account.setCbu(cbu);
+        account.setAlias(alias);
     }
 
-    @Given("I create an account with CBU {long} and a balance of {double}")
-    public void createAccountWithInitialBalance(long cbu, double balance) {
-        account = new Account(cbu, balance);
+    @Given("I create an account with CBU {long}, alias {string} and a balance of {double}")
+    public void createAccountWithInitialBalance(long cbu, String alias, double balance) {
+        account = new Account(cbu, alias, balance);
     }
 
-    @Given("An account with CBU {long} and a balance of {double}")
-    public void anAccountWithCBUAndBalance(long cbu, double balance) {
-        account = new Account(cbu, balance);
+    @Given("An account with CBU {long}, alias {string} and a balance of {double}")
+    public void anAccountWithCBUAndBalance(long cbu, String alias, double balance) {
+        account = new Account(cbu, alias, balance);
     }
 
-    @Given("A sender account with CBU {long} and a balance of {double}")
-    public void aSenderAccountWithCBUAndBalance(long cbu, double balance) {
-        account = new Account(cbu, balance);
+    @Given("A sender account with CBU {long}, alias {string} and a balance of {double}")
+    public void aSenderAccountWithCBUAndBalance(long cbu, String alias, double balance) {
+        account = new Account(cbu, alias, balance);
     }
 
-    @Given("A receiver account with CBU {long} and a balance of {double}")
-    public void aReceiverAccountWithCBUAndBalance(long cbu, double balance) {
-        transferToAccount = new Account(cbu, balance);
+    @Given("A receiver account with CBU {long}, alias {string} and a balance of {double}")
+    public void aReceiverAccountWithCBUAndBalance(long cbu, String alias, double balance) {
+        transferToAccount = new Account(cbu, alias, balance);
     }
 
-    @Given("A receiver account with no CBU")
-    public void anAccountWithNoCBU() {
-        transferToAccount = new Account();
+    @Given("A receiver account with no CBU and alias {string}")
+    public void anAccountWithNoCBU(String alias) {
+        transferToAccount = new Account(null, alias);
+    }
+
+    @Given("A receiver account with CBU {long} and no alias")
+    public void anAccountWithNoCBU(Long cbu) {
+        transferToAccount = new Account(cbu, null);
     }
 
     @Given("The same account as receiver")
     public void theSameAccountAsReceiving() {
-        transferToAccount = new Account(account.getCbu(), account.getBalance());
+        transferToAccount = account;
     }
 
     @When("I deposit {double} into the account")
@@ -68,13 +74,23 @@ public class AccountSteps {
         operationResult = account.withdraw(amount);
     }
 
-    @When("I transfer {double} into the other account")
-    public void transferIntoSecondAccount(double amount) {
+    @When("I transfer {double} into the other account through its CBU")
+    public void transferIntoSecondAccountThroughCbu(double amount) {
         operationResult = account.transfer(amount, transferToAccount);
     }
 
-    @When("I transfer {double} into the same account")
-    public void transferIntoSameAccount(double amount) {
+    @When("I transfer {double} into the other account through its alias")
+    public void transferIntoSecondAccountThroughAlias(double amount) {
+        operationResult = account.transfer(amount, transferToAccount);
+    }
+
+    @When("I transfer {double} into the same account through its CBU")
+    public void transferIntoSameAccountThroughCbu(double amount) {
+        operationResult = account.transfer(amount, account);
+    }
+
+    @When("I transfer {double} into the same account through its alias")
+    public void transferIntoSameAccountThroughAlias(double amount) {
         operationResult = account.transfer(amount, account);
     }
 
