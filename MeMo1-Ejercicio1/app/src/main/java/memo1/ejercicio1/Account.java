@@ -9,103 +9,133 @@ public class Account {
     private double balance;
     private Client owner;
     private Map<Integer, Client> coOwners;
+    private int relatedBranch;
 
-    public Account() {
-        this.balance = 0.0;
+    private void checkIfBalanceIsInvalid(double balance) {
+        if (balance < 0) {
+            throw new IllegalArgumentException("balance cannot be negative.");
+        }
     }
 
-    public Account(Long cbu, String alias, Client Owner) {
-        if (balance < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative.");
+    private void checkIfBranchNumberIsInvalid(int branchNumber) {
+        if (branchNumber <= 0) {
+            throw new IllegalArgumentException("Branch number cannot be negative.");
         }
+    }
+
+    private void checkIfClientIsNonExistent(Client owner) {
+        if (owner == null) {
+            throw new IllegalArgumentException("Client must exist.");
+        }
+    }
+
+    private void checkIfCbuIsInvalid(Long cbu) {
+        if (cbu <= 0) {
+            throw new IllegalArgumentException("CBU passed is not in correct format.");
+        }
+    }
+
+    public Account(Long cbu, String alias, Client owner, int branch) {
+        checkIfBalanceIsInvalid(balance);
+        checkIfBranchNumberIsInvalid(branch);
+        checkIfClientIsNonExistent(owner);
+        checkIfCbuIsInvalid(cbu);
         this.cbu = cbu;
         this.alias = alias;
         this.balance = 0.0;
+        this.owner = owner;
         this.coOwners = new HashMap<Integer, Client>();
+        this.relatedBranch = branch;
+
+        owner.oneMoreRelatedAccount();
     }
 
-    public Account(Long cbu, String alias, double balance, Client owner) {
-        if (balance < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative.");
-        }
+    public Account(Long cbu, String alias, double balance, Client owner, int branch) {
+        checkIfBalanceIsInvalid(balance);
+        checkIfBranchNumberIsInvalid(branch);
+        checkIfClientIsNonExistent(owner);
+        checkIfCbuIsInvalid(cbu);
         this.cbu = cbu;
         this.alias = alias;
         this.balance = balance;
         this.owner = owner;
         this.coOwners = new HashMap<Integer, Client>();
+        this.relatedBranch = branch;
+
+        owner.oneMoreRelatedAccount();
     }
 
     public Long getCbu() {
         return cbu;
     }
 
-    public void setCbu(Long cbu) {
-        this.cbu = cbu;
-    }
-
     public String getAlias() {
         return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        if (balance < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative.");
-        }
-        this.balance = balance;
+    public boolean isOwner(int passedDni) {
+        return passedDni == owner.getDni();
     }
 
-    public Client getOwner() {
-        return owner;
-    }
-
-    public boolean isCoOwner(Client coOwner) {
-        Client result = coOwners.get(coOwner.getDni());
+    public boolean isCoOwner(int dni) {
+        Client result = coOwners.get(dni);
         return result != null;
     }
-
     
     public void setNewCoOwner(Client newCoOwner) {
-        if (this.isCoOwner(newCoOwner) || newCoOwner.getDni() == owner.getDni() ){
+        if (this.isCoOwner(newCoOwner.getDni()) || newCoOwner.getDni() == owner.getDni() ){
             throw new IllegalArgumentException("Client already included in account.");
         }
+        newCoOwner.oneMoreRelatedAccount();
         coOwners.put(newCoOwner.getDni(), newCoOwner);
     }
 
-    public boolean withdraw(double amount) {
-        if (amount <= 0 || amount > balance) {
-            return false;
+    public void removeCoOwner(int dni) {
+        if (!this.isCoOwner(dni)){
+            throw new IllegalArgumentException("Client not included in account.");
         }
-        balance -= amount;
-        return true;
+        coOwners.get(dni).oneLessRelatedAccount();
+        coOwners.remove(dni);
     }
 
-    public boolean deposit(double amount) {
-        if (amount < 0) {
-            return false;
+    public int getBranch() {
+        return relatedBranch; 
+    }
+
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount to deposit cannot be nagative or zero.");
         }
         balance += amount;
-        return true;
     }
 
-    public boolean transfer(double amount, Account otherAccount) {
-        if ( amount <= 0 || this.getBalance() < amount ) {
-            return false;
-        } else if ( otherAccount.getCbu() == null || otherAccount.alias == null) {
-            return false;
-        } else if ( this.getCbu().equals( otherAccount.getCbu() ) || this.getCbu().equals( otherAccount.getCbu() ) ) {
-            return false;
+    public void withdraw(double amount) {
+        if (amount <= 0 || amount > balance) {
+            throw new IllegalArgumentException("Amount to withdraw cannot be nagative or zero.");
+        }
+        balance -= amount;
+    }
+
+    public void transfer(double amount, Account otherAccount) {
+        if ( amount <= 0 ) {
+            throw new IllegalArgumentException("Amount to transfer cannot be nagative or zero.");
+        } else if ( this.getBalance() < amount ) {
+            throw new IllegalArgumentException("Not enough money on account.");
+        } else if ( this.getCbu().equals( otherAccount.getCbu() ) && this.getAlias().equals( otherAccount.getAlias() ) ) {
+            throw new IllegalArgumentException("Cannot transfer to same account.");
         }
         this.withdraw(amount);
         otherAccount.deposit(amount);
-        return true;
+    }
+
+    // Esta función debería ser usada solo en caso de eliminar la cuenta desde AccountManager.
+    public void disassociateOwnerAndCoOwners() {
+        owner.oneLessRelatedAccount();
+        coOwners.forEach((dni,client) -> client.oneLessRelatedAccount() );
     }
 
 }

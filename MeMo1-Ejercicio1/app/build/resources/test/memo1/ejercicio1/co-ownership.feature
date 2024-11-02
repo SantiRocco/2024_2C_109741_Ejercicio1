@@ -20,8 +20,21 @@ Feature: Setting co-ownership of account
     And The client with DNI 20100100 should be a co-owner of the account
     And The client with DNI 19700900 should be a co-owner of the account
 
-  Scenario: owner cannot be co-owner
+  Scenario: Owner cannot be co-owner
    Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557"
     And An account with CBU 123456789, alias "iAmAccount", a balance of 1000.0, with the client of DNI 11222333 as owner
     When I set the client of DNI 11222333 as co-owner
+    Then The operation should be denied
+
+  Scenario: Account may have no co-owners
+   Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557"
+    And An account with CBU 123456789, alias "iAmAccount", a balance of 1000.0, with the client of DNI 11222333 as owner
+    When I see how many co-owners it has
+    Then The account shows it has 0 co-owners
+
+  Scenario: Account cannot have non-existent co-owners
+   Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557"
+    And An account with CBU 123456789, alias "iAmAccount", a balance of 1000.0, with the client of DNI 11222333 as owner
+    And A non-existent client
+    When I set the non-existent client as co-owner
     Then The operation should be denied

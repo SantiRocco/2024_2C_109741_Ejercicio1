@@ -1,33 +1,43 @@
 package memo1.ejercicio1;
 
-public class Marriage {
-    private String marriageDate;
-    private Client spouse1;
-    private Client spouse2;
+import java.time.LocalDate;
 
-    public Marriage(String marriageDate, Client client1, Client client2) {
-        if (client1.getDni() == client2.getDni()) {
-            throw new IllegalArgumentException("Client cannot be married to itself.");
+public class Marriage {
+    private LocalDate marriageDate;
+    private int spouse1Dni;
+    private int spouse2Dni;
+
+    private void checkIfDniIsInvalid(int dni) {
+        if (dni <= 0) {
+            throw new IllegalArgumentException("DNI cannot be negative or zero.");
         }
-        this.marriageDate = marriageDate;
-        this.spouse1 = client1;
-        this.spouse2 = client2;
     }
 
-    public String getDate() {
+    public Marriage(LocalDate marriageDate, int dni1, int dni2) {
+        if (dni1 == dni2) {
+            throw new IllegalArgumentException("Client cannot be married to itself.");
+        }
+        checkIfDniIsInvalid(dni1);
+        checkIfDniIsInvalid(dni2);
+        this.marriageDate = marriageDate;
+        this.spouse1Dni = dni1;
+        this.spouse2Dni = dni2;
+    }
+
+    public LocalDate getDate() {
         return marriageDate;
     }
 
-    public Client getFirstSpouse(){
-        return spouse1;
+    public int getFirstSpouseDni(){
+        return spouse1Dni;
     }
 
-    public Client getSecondSpouse(){
-        return spouse2;
+    public int getSecondSpouseDni(){
+        return spouse2Dni;
     }
 
-    public boolean isInMarriage(Client foreignClient) {
-        return ( foreignClient.getDni() == spouse1.getDni() || foreignClient.getDni() == spouse2.getDni() );
+    public boolean isInMarriage(int foreignClientDni) {
+        return ( foreignClientDni == spouse1Dni || foreignClientDni == spouse2Dni );
     }
 
 }

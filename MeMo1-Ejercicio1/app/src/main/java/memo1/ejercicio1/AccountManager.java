@@ -4,12 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AccountManager {
+    private static AccountManager managerInstance;
+    private int numberOfAccounts;
     private Map<Long, Account> accountsCbuAsKey;
     private Map<String, Account> accountsAliasAsKey;
 
-    public AccountManager() {
+    private AccountManager() {
+        numberOfAccounts = 0;
         accountsCbuAsKey = new HashMap<Long, Account>();
         accountsAliasAsKey = new HashMap<String, Account>();
+    }
+
+    private void checkIfAccountExists(Long cbu, String alias) {
+        if (accountExists(cbu) || accountExists(alias)){
+            throw new IllegalArgumentException("Account already exists");
+        }
+    }
+
+    public static AccountManager getInstance() {
+        if (managerInstance == null) {
+            managerInstance = new AccountManager();
+        }
+        return managerInstance;
     }
 
     public boolean accountExists(Long cbu) {
@@ -20,6 +36,10 @@ public class AccountManager {
     public boolean accountExists(String alias) {
         Account result = accountsAliasAsKey.get(alias);
         return result != null;
+    }
+
+    public int getNumberOfAccounts() {
+        return numberOfAccounts;
     }
 
     public Account getAccount(Long cbu) {
@@ -36,45 +56,48 @@ public class AccountManager {
         return accountsAliasAsKey.get(alias);
     }
 
-    public void saveAccount(Account newAccount) {
-        Long newAccountCbu = newAccount.getCbu();
-        if (accountExists(newAccountCbu)){
-            throw new IllegalArgumentException("Account already exists");
+    public void createAccount(Long cbu, String alias, Client newOwner, int branch) {
+        checkIfAccountExists(cbu, alias);
+        Account newAccount = new Account(cbu, alias, newOwner, branch);
+        accountsCbuAsKey.put(cbu, newAccount);
+        accountsAliasAsKey.put(alias, newAccount);
+        numberOfAccounts++;
+    }
+
+    public void createAccount(Long cbu, String alias, double balance, Client newOwner, int branch) {
+        checkIfAccountExists(cbu, alias);
+        Account newAccount = new Account(cbu, alias, balance, newOwner, branch);
+        accountsCbuAsKey.put(cbu, newAccount);
+        accountsAliasAsKey.put(alias, newAccount);
+        numberOfAccounts++;
+    }
+
+    public void deleteAccount(Long cbu) {
+        if (!accountExists(cbu)){
+            throw new IllegalArgumentException("Account does not exist.");
         }
-        String newAccountAlias = newAccount.getAlias();
-        accountsCbuAsKey.put(newAccountCbu, newAccount);
-        accountsAliasAsKey.put(newAccountAlias, newAccount);
+        Account clientToRemove = accountsCbuAsKey.get(cbu);
+        String alias = getAccount(cbu).getAlias();
+
+        clientToRemove.disassociateOwnerAndCoOwners();
+
+        accountsCbuAsKey.remove(cbu);
+        accountsAliasAsKey.remove(alias);
+        numberOfAccounts--;
     }
 
-    public void deposit(Long cbu, Double amount) {
-        Account account = getAccount(cbu);
-        account.deposit(amount);
-    }
+    
+    public void deleteAccount(String alias) {
+        if (!accountExists(alias)){
+            throw new IllegalArgumentException("Account does not exist.");
+        }
+        Account clientToRemove = accountsAliasAsKey.get(alias);
+        Long cbu = getAccount(alias).getCbu();
 
-    public void deposit(String alias, Double amount) {
-        Account account = getAccount(alias);
-        account.deposit(amount);
-    }
+        clientToRemove.disassociateOwnerAndCoOwners();
 
-    public void withdraw(Long cbu, Double amount) {
-        Account account = getAccount(cbu);
-        account.withdraw(amount);
-    }
-
-    public void withdraw(String alias, Double amount) {
-        Account account = getAccount(alias);
-        account.withdraw(amount);
-    }
-
-    public void transfer(Long senderCbu, Long receiverCbu, Double amount) {
-        Account senderAccount = getAccount(senderCbu);
-        Account receiverAccount = getAccount(receiverCbu);
-        senderAccount.transfer(amount, receiverAccount);
-    }
-
-    public void transfer(String senderAlias, String receiverAlias, Double amount) {
-        Account senderAccount = getAccount(senderAlias);
-        Account receiverAccount = getAccount(receiverAlias);
-        senderAccount.transfer(amount, receiverAccount);
+        accountsCbuAsKey.remove(cbu);
+        accountsAliasAsKey.remove(alias);
+        numberOfAccounts--;
     }
 }
