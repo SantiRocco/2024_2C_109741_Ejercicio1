@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="memo1.ejercicio1.MarriageManagerTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2024-11-06T18:55:59" hostname="codespaces-4d7fba" time="0.048">
+  <properties/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfNotMarriedPerson()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.0"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingIfPersonWhoIsNotAClientIsMarried()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.0"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfMarriedPersonThroughAZeroDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.003"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToSaveMarriageWithOneDniBeingNegative()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.003"/>
+  <testcase name="marriageManagerShouldLeaveNoTraceOfMarriageWhenDeletingMarriage()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.002"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingIfClientIsMarriedThroughANegativeDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingIfClientIsMarriedThroughADniEqualToZero()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfMarriedPersonThroughANegativeDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.0"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToSaveMarriageWithOneDniBeingZero()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingForDateOfMarriageForUnmarriedClient()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithNotClientDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldCorrectlyGetSpouseOfMarriedClient()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingForDateOfMarriageThroughAZeroDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithZeroDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfPersonWhoIsNotClient()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.0"/>
+  <testcase name="marriageManagerShouldCorrectlyReturnDateOfMarriageOfMarriedPerson()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToDeleteNonExistentMarriage()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldSaveMarriageCorrectly()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToSaveCopyOfMarriage()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.002"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithNegativeDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldCorrectlyDetectThatMarriedPersonIsMarried()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldCorrectlyDetectThatNotMarriedPersonIsNotMarried()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenTryingToSaveMarriageWithClientAlreadyMarried()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.002"/>
+  <testcase name="marriageManagerShouldThrowExceptionWhenSearchingForDateOfMarriageThroughANegativeDni()" classname="memo1.ejercicio1.MarriageManagerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

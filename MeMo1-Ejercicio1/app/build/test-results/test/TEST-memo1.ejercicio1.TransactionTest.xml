@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="memo1.ejercicio1.TransactionTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-11-06T18:55:59" hostname="codespaces-4d7fba" time="0.021">
+  <properties/>
+  <testcase name="constructorShouldThrowExceptionIfAmountIsNegative()" classname="memo1.ejercicio1.TransactionTest" time="0.005"/>
+  <testcase name="transactionShouldSaveAllDataCorrectlyForTransfer()" classname="memo1.ejercicio1.TransactionTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionIfIdIsZero()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfIdIsNegative()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfOneCbuIsNegative()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfOneCbuIsZero()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfBothCbusAreTheSame()" classname="memo1.ejercicio1.TransactionTest" time="0.002"/>
+  <testcase name="transactionShouldSaveAllDataCorrectlyForDeposit()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfAmountIsZero()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <testcase name="transactionShouldSaveAllDataCorrectlyForWithdrawal()" classname="memo1.ejercicio1.TransactionTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionWhenTryingToSaveTransferWithOneCbu()" classname="memo1.ejercicio1.TransactionTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionWhenTryingToSaveDepositOrWithdrawalWithTwoCbus()" classname="memo1.ejercicio1.TransactionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

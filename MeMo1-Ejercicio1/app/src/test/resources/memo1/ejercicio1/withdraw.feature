@@ -52,14 +52,14 @@ Feature: Withdrawing money
     Then The operation should be denied due to insufficient funds
     And The account balance should remain 1000.0
 
-  Scenario: Cannot withdraw from a non-existent account thorugh CBU
+  Scenario: Cannot withdraw from a non-existent account through CBU
     Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"
     And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557"
     And A non-existent account CBU like 111122223
     When I try to withdraw 100.0 from the non-existent account through CBU, with DNI 11222333
     Then The operation should be denied
 
-  Scenario: Cannot withdraw from a non-existent account thorugh alias
+  Scenario: Cannot withdraw from a non-existent account through alias
     Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"
     And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557"
     And A non-existent account alias like "iAmNotAccount"

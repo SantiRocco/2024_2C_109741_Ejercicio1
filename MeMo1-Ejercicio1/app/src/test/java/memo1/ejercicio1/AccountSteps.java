@@ -348,6 +348,21 @@ public class AccountSteps {
         }
     }
 
+    @When("I remove the co-ownership of account with DNI {int}")
+    public void removeClientAsCoOwner(int dni) {        
+        account.removeCoOwner(dni);
+    }
+
+    @When("I try to remove the co-ownership of account with DNI {int}")
+    public void tryToRemoveClientAsCoOwner(int dni) {        
+        try {
+            account.removeCoOwner(dni);
+            operationResult = true;
+        } catch(Exception e) {
+            operationResult = false;
+        }
+    }
+
     @When("I delete the account")
     public void deleteAccount() {        
         Branch branch = system.getBranch(account.getBranch());

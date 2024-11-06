@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">11</div>
+<div class="counter">35</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.063s</div>
+<div class="counter">0.048s</div>
 <p>duration</p>
 </div>
 </td>
@@ -75,23 +75,93 @@
 </tr>
 </thead>
 <tr>
-<td class="success">constructorShouldSetBalanceCorrectly()</td>
-<td class="success">0.004s</td>
+<td class="success">accountShouldCorrectlyRemoveCoOwner()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">constructorShouldThrowExceptionIfBalanceIsNegative()</td>
+<td class="success">accountShouldDetectItsOwnerAsOwner()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">accountShouldNotDetectItsOwnerAsCoOwner()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">accountShouldNotLetSaveAlreadyIncludedClients()</td>
 <td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">constructorWithCbuShouldInitializeCorrectly()</td>
-<td class="success">0.040s</td>
+<td class="success">accountShouldNotdetectExcludedClientDniAsCoOwner()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">accountShouldSaveCorrectlyItsCoOwners()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">accountShouldShouldNotDetectItsCoOwnersAsOwners()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">accountShouldThrowExceptionWhenTryingToRemoveNonExistentCoOwner()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldSetBalanceCorrectly()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfBalanceIsNegative()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfBranchNumberIsNegative()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfBranchNumberIsZero()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfCbuIsNegative()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfCbuIsZero()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorShouldThrowExceptionIfClientIsNull()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructorWithCbuAndAliasShouldInitializeCorrectly()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">defaultConstructorShouldInitializeBalanceToZero()</td>
-<td class="success">0.004s</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">defaultConstructorShouldSetDataCorrectly()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -100,32 +170,82 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">depositShouldReturnFalseForNegativeAmount()</td>
+<td class="success">depositShouldThrowExceptionForNegativeAmount()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">depositShouldThrowExceptionForZeroAmount()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldAllowOwnerAndCoOwners()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldDecreaseSenderAccountBalanceAndIncreaseReceiverAccountBalance()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldThrowExceptionForAmountHigherThanBalanceAvailable()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldThrowExceptionForNegativeAmount()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldThrowExceptionForNotRelatedDni()</td>
 <td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">setBalanceShouldThrowExceptionIfBalanceIsNegative()</td>
-<td class="success">0.001s</td>
+<td class="success">transferShouldThrowExceptionForZeroAmount()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">transferShouldThrowExceptionWhenTransferringToSameAccount()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">withdrawShouldAllowExactAmount()</td>
-<td class="success">0.004s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">withdrawShouldDecreaseBalance()</td>
-<td class="success">0.002s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">withdrawShouldReturnFalseForNegativeAmount()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">withdrawShouldReturnFalseIfAmountExceedsBalance()</td>
+<td class="success">withdrawShouldAllowOwnerAndCoOwners()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">withdrawShouldDecreaseBalance()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">withdrawShouldThrowExceptionForNegativeAmount()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">withdrawShouldThrowExceptionForNotRelatedDni()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">withdrawShouldThrowExceptionForZeroAmount()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">withdrawShouldThrowExceptionIfAmountExceedsBalance()</td>
 <td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
@@ -139,7 +259,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.10</a> at Sep 3, 2024, 11:52:38 PM</p>
+<a href="http://www.gradle.org">Gradle 8.0.2</a> at Nov 6, 2024, 6:55:59 PM</p>
 </div>
 </div>
 </body>
