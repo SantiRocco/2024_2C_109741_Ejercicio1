@@ -24,28 +24,28 @@ public class AccountSteps {
     public void createAccountWithDefaultBalance(long cbu, String alias, int clientDni, int branchNumber) {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(cbu, alias, clientDni);
-        account = branch.getAccount(cbu);
+        account = system.getAccount(cbu);
     }
 
     @Given("An account with CBU {long}, alias {string}, balance of {double}, with client of DNI {int} as owner and created by branch {int}")
     public void createAccountWithInitialBalance(long cbu, String alias, double balance, int clientDni, int branchNumber) {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(cbu, alias, balance, clientDni);
-        account = branch.getAccount(cbu);
+        account = system.getAccount(cbu);
     }
 
     @Given("A sender account with CBU {long}, alias {string}, balance of {double}, with client of DNI {int} as owner and created by branch {int}")
     public void createSenderAccountWithInitialBalance(long cbu, String alias, double balance, int clientDni, int branchNumber) {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(cbu, alias, balance, clientDni);
-        senderAccount = branch.getAccount(cbu);
+        senderAccount = system.getAccount(cbu);
     }
 
     @Given("A receiver account with CBU {long}, alias {string}, balance of {double}, with client of DNI {int} as owner and created by branch {int}")
     public void createReceiverAccountWithInitialBalance(long cbu, String alias, double balance, int clientDni, int branchNumber) {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(cbu, alias, balance, clientDni);
-        receiverAccount = branch.getAccount(cbu);
+        receiverAccount = system.getAccount(cbu);
     }
 
     @Given("A non-existent account CBU like {long}")
@@ -68,7 +68,7 @@ public class AccountSteps {
         try {
             Branch branch = system.getBranch(branchNumber);
             branch.createAccount(cbu, alias, clientDni);
-            account = branch.getAccount(cbu);
+            account = system.getAccount(cbu);
             operationResult = true;
         } catch(Exception e) {
             operationResult = false;
@@ -80,7 +80,7 @@ public class AccountSteps {
         try {
             Branch branch = system.getBranch(branchNumber);
             branch.createAccount(cbu, alias, amount, clientDni);
-            account = branch.getAccount(cbu);
+            account = system.getAccount(cbu);
             operationResult = true;
         } catch(Exception e) {
             operationResult = false;
@@ -424,8 +424,7 @@ public class AccountSteps {
 
     @Then("The account should not be found anymore")
     public void verifyAccountNotFoundAnymore() {
-        Branch branch = system.getBranch(account.getBranch());
-        assertThrows( IllegalArgumentException.class, () -> branch.getAccount( account.getCbu() ) );
+        assertThrows( IllegalArgumentException.class, () -> system.getAccount( account.getCbu() ) );
     }
 
     @After

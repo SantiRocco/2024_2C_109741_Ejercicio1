@@ -20,11 +20,11 @@ public class Main {
 
         // Crear una instancia de Account usando el constructor sin saldo inicial
         branch.createAccount(123456789L, "iAmAccount1", 12345678);
-        Account account1 = branch.getAccount("iAmAccount1");
+        Account account1 = system.getAccount("iAmAccount1");
 
         // Crear una instancia de Account usando el constructor con saldo inicial
         branch.createAccount(111222333L, "iAmAccount2", 1000.0, 20000000);
-        Account account2 = branch.getAccount("iAmAccount2");
+        Account account2 = system.getAccount("iAmAccount2");
 
         // Imprimir detalles de las cuentas
         System.out.println("Cuenta 1:");

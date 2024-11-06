@@ -93,22 +93,6 @@ public class Branch {
         numberOfAccountsOfBranch--;
     }
 
-    public Account getAccount(Long cbu) {
-        checkIfInactive();
-        if (!accountIsInThisBranch(cbu)) {
-            throw new IllegalArgumentException("Account does not belong to this branch. Cannot get it.");
-        }
-        return accountManager.getAccount(cbu);
-    }
-
-    public Account getAccount(String alias) {
-        checkIfInactive();
-        if (!accountIsInThisBranch(alias)) {
-            throw new IllegalArgumentException("Account does not belong to this branch. Cannot get it.");
-        }
-        return accountManager.getAccount(alias);
-    }
-
     public String getName() {
         checkIfInactive();
         return name;

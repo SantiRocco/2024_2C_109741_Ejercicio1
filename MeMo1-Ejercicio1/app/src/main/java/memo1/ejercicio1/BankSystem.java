@@ -55,7 +55,7 @@ public class BankSystem {
         return numberOfBranches;
     }
 
-    // Para modificar información de las sucursales o crear nuevas cuentas asociadas a las mismas.
+    // Para modificar información de las sucursales o crear/borrar nuevas cuentas asociadas a las mismas.
     public Branch getBranch(int numberOfBranch) {
         if (!branchExists(numberOfBranch)) {
             throw new IllegalArgumentException("Branch specified does not exist.");

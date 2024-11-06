@@ -33,8 +33,7 @@ public class ClientSteps {
 
         system.addClient(dni, surname, name, birthDate, address);
 
-        Branch branch = system.getBranch(branchNumber);
-        Account account = branch.getAccount(cbu);
+        Account account = system.getAccount(cbu);
         account.setNewCoOwner(system.getClient(dni));
 
         client = system.getClient(dni);
