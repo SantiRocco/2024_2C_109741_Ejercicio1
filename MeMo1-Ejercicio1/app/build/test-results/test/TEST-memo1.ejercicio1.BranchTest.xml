@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="memo1.ejercicio1.BranchTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2024-11-06T18:55:58" hostname="codespaces-4d7fba" time="0.027">
+<testsuite name="memo1.ejercicio1.BranchTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.034">
   <properties/>
-  <testcase name="branchShouldCorrectlyCreateAccountWithDefaultBalance()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
+  <testcase name="branchShouldCorrectlyCreateAccountWithDefaultBalance()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="branchShouldThrowExceptionWhenTryingToDeleteAccountOfDifferentBranchWithCbu()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithAlias()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="branchShouldBeAbleToChangeItsName()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="constructorShouldInitializeAllDataCorrectly()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="constructorShouldThrowExceptionIfNumberOfInstanceIsNegative()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
-  <testcase name="branchShouldCorrectlyDeleteAccountWithAlias()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
-  <testcase name="constructorShouldThrowExceptionIfNumberOfInstanceIsZero()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
-  <testcase name="branchShouldCorrectlyGetAccountThroughAlias()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
+  <testcase name="branchShouldCorrectlyDeleteAccountWithAlias()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfNumberOfInstanceIsZero()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
+  <testcase name="branchShouldCorrectlyGetAccountThroughAlias()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="branchShouldThrowExceptionWhenDoingAnyOperationWhileInactive()" classname="memo1.ejercicio1.BranchTest" time="0.003"/>
-  <testcase name="branchShouldCorrectlyCreateAccountWithCustomBalance()" classname="memo1.ejercicio1.BranchTest" time="0.003"/>
+  <testcase name="branchShouldCorrectlyCreateAccountWithCustomBalance()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
   <testcase name="branchShouldThrowExceptionWhenTryingToCreateAccountWithDniOfNonExistentClient()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
-  <testcase name="branchShouldShowCorrectlyThatItIsActive()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
-  <testcase name="branchShouldCorrectlyGetAccountThroughCbu()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
+  <testcase name="branchShouldShowCorrectlyThatItIsActive()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
+  <testcase name="branchShouldCorrectlyGetAccountThroughCbu()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithCbu()" classname="memo1.ejercicio1.BranchTest" time="0.001"/>
   <testcase name="branchShouldCorrectlyDeleteAccountWithCbu()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>
   <testcase name="branchShouldBeAbleToChangeItsAddress()" classname="memo1.ejercicio1.BranchTest" time="0.0"/>

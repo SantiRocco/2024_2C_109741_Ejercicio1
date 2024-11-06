@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="memo1.ejercicio1.AccountManagerTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2024-11-06T18:55:58" hostname="codespaces-4d7fba" time="0.094">
+<testsuite name="memo1.ejercicio1.AccountManagerTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.11">
   <properties/>
-  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.027"/>
-  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
+  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.026"/>
+  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
   <testcase name="constructorShouldInitializeNumberOfAccountsToZero()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <testcase name="accountManagerShouldCorrectlyGetExistingAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToAccountWithSameCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
   <testcase name="accountManagerShouldCorrectlyDeleteExistingAccountWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
-  <testcase name="accountManagerShouldCorrectlySetBalanceWhenAddingAccountWithBalance()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
-  <testcase name="accountManagerShouldCorrectlyAddToCounterWhenAddingOneAccount()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
+  <testcase name="accountManagerShouldCorrectlySetBalanceWhenAddingAccountWithBalance()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
+  <testcase name="accountManagerShouldCorrectlyAddToCounterWhenAddingOneAccount()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToAccountWithSameAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <testcase name="accountManagerShouldCorrectlyReduceNumberOfRelatedAccountsOfOwnerAndCoOwnersOfAccountWhenDeletingIt()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
-  <testcase name="accountManagerShouldCorrectlyDetectThatNonExistentAccountDoesNotExistWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
+  <testcase name="accountManagerShouldCorrectlyDetectThatNonExistentAccountDoesNotExistWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToGetNonExistentAccountWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
-  <testcase name="accountManagerShouldCorrectlySubstractOfCounterWhenAddingOneAccount()" classname="memo1.ejercicio1.AccountManagerTest" time="0.003"/>
-  <testcase name="accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.003"/>
-  <testcase name="accountManagerShouldThrowExceptionWhenTryingToGetNonExistentAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.003"/>
+  <testcase name="accountManagerShouldCorrectlySubstractOfCounterWhenAddingOneAccount()" classname="memo1.ejercicio1.AccountManagerTest" time="0.0"/>
+  <testcase name="accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
+  <testcase name="accountManagerShouldThrowExceptionWhenTryingToGetNonExistentAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.004"/>
   <testcase name="accountManagerShouldCorrectlyDetectThatNonExistentAccountDoesNotExistWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
-  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.005"/>
+  <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <testcase name="accountManagerShouldCorrectlyDeleteExistingAccountWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <testcase name="accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
-  <testcase name="accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.002"/>
+  <testcase name="accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithCbu()" classname="memo1.ejercicio1.AccountManagerTest" time="0.0"/>
   <testcase name="accountManagerShouldCorrectlyGetExistingAccountWithAlias()" classname="memo1.ejercicio1.AccountManagerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

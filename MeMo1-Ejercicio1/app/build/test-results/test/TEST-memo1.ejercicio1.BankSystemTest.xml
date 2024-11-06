@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="memo1.ejercicio1.BankSystemTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2024-11-06T18:55:58" hostname="codespaces-4d7fba" time="0.085">
+<testsuite name="memo1.ejercicio1.BankSystemTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.09">
   <properties/>
-  <testcase name="bankSystemShouldSuccessfullyDepositToAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.008"/>
-  <testcase name="bankSystemShouldSuccessfullyCheckThatNotMarriedClientIsNotMarried()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldSuccessfullyTransferToAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldSuccessfullyWithdrawToAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenDepositingThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
+  <testcase name="bankSystemShouldSuccessfullyDepositToAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.02"/>
+  <testcase name="bankSystemShouldSuccessfullyCheckThatNotMarriedClientIsNotMarried()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
+  <testcase name="bankSystemShouldSuccessfullyTransferToAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
+  <testcase name="bankSystemShouldSuccessfullyWithdrawToAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenDepositingThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldSuccessfullyGetClient()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldSuccessfullyGetAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.003"/>
-  <testcase name="bankSystemShouldCreateAndGetBranchCorrectly()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenWithdrawingThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
+  <testcase name="bankSystemShouldSuccessfullyGetAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.004"/>
+  <testcase name="bankSystemShouldCreateAndGetBranchCorrectly()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
+  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenWithdrawingThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldSuccessfullyTransferToAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldCorrectlySaveTransactionWhenTransferingToAnotherAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldDetectThatExistingBranchExists()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
+  <testcase name="bankSystemShouldDetectThatExistingBranchExists()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
   <testcase name="bankSystemShouldSuccessfullyCheckThatExistingClientExists()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
   <testcase name="bankSystemShouldCorrectlySaveTransactionWhenWithdrawingThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldSuccessfullyCheckThatExistingAccountExistsThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
   <testcase name="bankSystemShouldThrowExceptionWhenTryingToGetNonExistentBranch()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldSuccessfullyGetDateOfMarriage()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenDepositingThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldSuccessfullyGetAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenDepositingThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldSuccessfullyGetAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
   <testcase name="bankSystemShouldSuccessfullyCheckThatNonExistingClientDoesNotExist()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <testcase name="bankSystemShouldSuccessfullyDepositToAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldDetectThatNonExistingBranchDoesNotExist()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="constructorShouldSetNumberOfBranchesToZero()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldSuccessfullyCheckThatExistingAccountExistsThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldDetectThatNonExistingBranchDoesNotExist()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
+  <testcase name="constructorShouldSetNumberOfBranchesToZero()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldSuccessfullyCheckThatExistingAccountExistsThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
   <testcase name="bankSystemShouldSuccessfullyWithdrawToAccountThroughAlias()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldSuccessfullyGetSpouseOfMarriedClient()" classname="memo1.ejercicio1.BankSystemTest" time="0.003"/>
-  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenTransferingToAnotherAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
-  <testcase name="bankSystemShouldSuccessfullyDeleteMarriage()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
-  <testcase name="bankSystemShouldSuccessfullyCheckThatMarriedClientIsMarried()" classname="memo1.ejercicio1.BankSystemTest" time="0.0"/>
+  <testcase name="bankSystemShouldSuccessfullyGetSpouseOfMarriedClient()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
+  <testcase name="bankSystemShouldCorrectlySaveTransactionWhenTransferingToAnotherAccountThroughCbu()" classname="memo1.ejercicio1.BankSystemTest" time="0.002"/>
+  <testcase name="bankSystemShouldSuccessfullyDeleteMarriage()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
+  <testcase name="bankSystemShouldSuccessfullyCheckThatMarriedClientIsMarried()" classname="memo1.ejercicio1.BankSystemTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
