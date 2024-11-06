@@ -9,25 +9,34 @@ public class BankSystem {
     private static BankSystem systemInstance;
     private int numberOfBranches;
     private Map<Integer, Branch> branches;
-    private AccountManager accountManager;
     private ClientManager clientManager;
+    private AccountManager accountManager;
     private MarriageManager marriageManager;
     private TransactionsManager transactionsManager;
 
     private BankSystem() {
         this.numberOfBranches = 0;
         this.branches = new HashMap<Integer, Branch>();
-        this.accountManager = AccountManager.getInstance();
-        this.clientManager = ClientManager.getInstance();
-        this.marriageManager = MarriageManager.getInstance();
-        this.transactionsManager = TransactionsManager.getInstance();
+        this.clientManager = new ClientManager();
+        this.accountManager = new AccountManager();
+        this.marriageManager = new MarriageManager(clientManager);
+        this.transactionsManager = new TransactionsManager();
     }
 
     public static BankSystem getInstance() {
         if (systemInstance == null) {
-            systemInstance = new BankSystem();
+        systemInstance = new BankSystem();
         }
         return systemInstance;
+    }
+
+    public void clearEntireSystem() {
+        this.numberOfBranches = 0;
+        this.branches = new HashMap<Integer, Branch>();
+        this.clientManager = new ClientManager();
+        this.accountManager = new AccountManager();
+        this.marriageManager = new MarriageManager(clientManager);
+        this.transactionsManager = new TransactionsManager();
     }
 
     public int getNumberOfBranches() {
@@ -40,20 +49,10 @@ public class BankSystem {
 
     public int createBranch(String name, String address) {
         int branchNumber = numberOfBranches + 1;
-        Branch newBranch = new Branch(branchNumber, name, address);
+        Branch newBranch = new Branch(branchNumber, name, address, this.accountManager, this.clientManager);
         branches.put(branchNumber, newBranch);
         numberOfBranches = branchNumber;
         return numberOfBranches;
-    }
-
-    public void deleteBranch(int numberOfBranch) {
-        if (!branchExists(numberOfBranch)) {
-            throw new IllegalArgumentException("Branch specified does not exist.");
-        } else if (branches.get(numberOfBranch).getNumberOfAccountsOfBranch() != 0) {
-            throw new IllegalArgumentException("Cannot delete branch with associated accounts.");
-        }
-        branches.remove(numberOfBranch);
-        numberOfBranches--;
     }
 
     // Para modificar información de las sucursales o crear nuevas cuentas asociadas a las mismas.
@@ -93,7 +92,7 @@ public class BankSystem {
     }
 
     public void deleteClient(int dni) {
-        clientManager.deleteClient(dni);
+        clientManager.deleteClient(dni, marriageManager);
     }
 
     public void newMarriage(LocalDate date, int newSpouse1Dni, int newSpouse2Dni) {
@@ -138,38 +137,38 @@ public class BankSystem {
         return transactionsManager.saveTransaction(currentDate, currentTime, TransactionType.DEPOSIT, amount, account.getCbu());
     }
 
-    public int withdraw(Long cbu, double amount) {
+    public int withdraw(int relatedDni, Long cbu, double amount) {
         Account account = accountManager.getAccount(cbu);
-        account.withdraw(amount);
+        account.withdraw(relatedDni, amount);
 
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
         return transactionsManager.saveTransaction(currentDate, currentTime, TransactionType.WITHDRAWAL, amount, account.getCbu());
     }
 
-    public int withdraw(String alias, double amount) {
+    public int withdraw(int relatedDni, String alias, double amount) {
         Account account = accountManager.getAccount(alias);
-        account.withdraw(amount);
+        account.withdraw(relatedDni, amount);
 
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
         return transactionsManager.saveTransaction(currentDate, currentTime, TransactionType.WITHDRAWAL, amount, account.getCbu());
     }
 
-    public int transfer(Long starterCbu, Long targetCbu, double amount) {
+    public int transfer(int relatedDni, Long starterCbu, Long targetCbu, double amount) {
         Account starterAccount = accountManager.getAccount(starterCbu);
         Account targetAccount = accountManager.getAccount(targetCbu);
-        starterAccount.transfer(amount, targetAccount);
+        starterAccount.transfer(relatedDni, amount, targetAccount);
 
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
         return transactionsManager.saveTransaction(currentDate, currentTime, TransactionType.TRANSFER, amount, starterCbu, targetCbu);
     }
 
-    public int transfer(String starterAlias, String targetAlias, double amount) {
+    public int transfer(int relatedDni, String starterAlias, String targetAlias, double amount) {
         Account starterAccount = accountManager.getAccount(starterAlias);
         Account targetAccount = accountManager.getAccount(targetAlias);
-        starterAccount.transfer(amount, targetAccount);
+        starterAccount.transfer(relatedDni, amount, targetAccount);
 
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
@@ -193,32 +192,32 @@ public class BankSystem {
         return transactionsManager.saveTransaction(passedDate, passedTime, TransactionType.DEPOSIT, amount, account.getCbu());
     }
 
-    public int withdraw(LocalDate passedDate, LocalTime passedTime, Long cbu, double amount) {
+    public int withdraw(LocalDate passedDate, LocalTime passedTime, int relatedDni, Long cbu, double amount) {
         Account account = accountManager.getAccount(cbu);
-        account.withdraw(amount);
+        account.withdraw(relatedDni, amount);
 
         return transactionsManager.saveTransaction(passedDate, passedTime, TransactionType.WITHDRAWAL, amount, account.getCbu());
     }
 
-    public int withdraw(LocalDate passedDate, LocalTime passedTime, String alias, double amount) {
+    public int withdraw(LocalDate passedDate, LocalTime passedTime, int relatedDni, String alias, double amount) {
         Account account = accountManager.getAccount(alias);
-        account.withdraw(amount);
+        account.withdraw(relatedDni, amount);
 
         return transactionsManager.saveTransaction(passedDate, passedTime, TransactionType.WITHDRAWAL, amount, account.getCbu());
     }
 
-    public int transfer(LocalDate passedDate, LocalTime passedTime, Long starterCbu, Long targetCbu, double amount) {
+    public int transfer(LocalDate passedDate, LocalTime passedTime, int relatedDni, Long starterCbu, Long targetCbu, double amount) {
         Account starterAccount = accountManager.getAccount(starterCbu);
         Account targetAccount = accountManager.getAccount(targetCbu);
-        starterAccount.transfer(amount, targetAccount);
+        starterAccount.transfer(relatedDni, amount, targetAccount);
 
         return transactionsManager.saveTransaction(passedDate, passedTime, TransactionType.TRANSFER, amount, starterCbu, targetCbu);
     }
 
-    public int transfer(LocalDate passedDate, LocalTime passedTime, String starterAlias, String targetAlias, double amount) {
+    public int transfer(LocalDate passedDate, LocalTime passedTime, int relatedDni, String starterAlias, String targetAlias, double amount) {
         Account starterAccount = accountManager.getAccount(starterAlias);
         Account targetAccount = accountManager.getAccount(targetAlias);
-        starterAccount.transfer(amount, targetAccount);
+        starterAccount.transfer(relatedDni, amount, targetAccount);
 
         return transactionsManager.saveTransaction(passedDate, passedTime, TransactionType.TRANSFER, amount, starterAccount.getCbu(), targetAccount.getCbu());
     }

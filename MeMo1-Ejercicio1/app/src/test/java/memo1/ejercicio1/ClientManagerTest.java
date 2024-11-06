@@ -20,19 +20,19 @@ public class ClientManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager manager = new ClientManager();
 
         manager.addClient(dni, surname, name, birthDate, address);
 
         Client client = manager.getClient(dni);
+
+        assertEquals(1, manager.getNumberOfClients());
 
         assertTrue(manager.clientExists(dni));
         assertEquals(surname, client.getSurname());
         assertEquals(name, client.getName());
         assertEquals(birthDate, client.getBirthDate());
         assertEquals(address, client.getAddress());
-
-        manager.deleteClient(dni);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ClientManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager manager = new ClientManager();
 
         manager.addClient(dni, surname, name, birthDate, address);
 
@@ -54,8 +54,6 @@ public class ClientManagerTest {
         assertEquals(name, client.getName());
         assertEquals(birthDate, client.getBirthDate());
         assertEquals(address, client.getAddress());
-
-        manager.deleteClient(dni);
     }
 
     @Test
@@ -66,36 +64,38 @@ public class ClientManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+        MarriageManager marriageManager = new MarriageManager(clientManager);
 
-        manager.addClient(dni, surname, name, birthDate, address);
+        clientManager.addClient(dni, surname, name, birthDate, address);
 
 
-        Client client = manager.getClient(dni);
+        Client client = clientManager.getClient(dni);
 
-        assertTrue(manager.clientExists(dni));
+        assertTrue(clientManager.clientExists(dni));
         assertEquals(surname, client.getSurname());
         assertEquals(name, client.getName());
         assertEquals(birthDate, client.getBirthDate());
         assertEquals(address, client.getAddress());
 
-        manager.deleteClient(dni);
+        clientManager.deleteClient(dni, marriageManager);
     
-        assertFalse(manager.clientExists(dni));
-        assertThrows(IllegalArgumentException.class, () -> manager.getClient(dni) );
+        assertFalse(clientManager.clientExists(dni));
+        assertThrows(IllegalArgumentException.class, () -> clientManager.getClient(dni) );
     }
 
     @Test
     void clientManagerShouldThrowExceptionIfTryingToGetClientWithNegativeDni() {
         int negativeDni = -1;
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager manager = new ClientManager();
+
         assertThrows(IllegalArgumentException.class, () -> manager.clientExists(negativeDni) );
     }
 
     @Test
     void clientManagerShouldThrowExceptionIfTryingToGetClientWithZeroDni() {
         int zeroDni = 0;
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager manager = new ClientManager();
     
         assertThrows(IllegalArgumentException.class, () -> manager.clientExists(zeroDni) );
     }
@@ -103,7 +103,7 @@ public class ClientManagerTest {
     @Test
     void clientManagerShouldThrowExceptionIfTryingToGetNonExistentClient() {
         int nonExistentDni = 12345678;
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager manager = new ClientManager();
     
         assertFalse(manager.clientExists(nonExistentDni));
     }
@@ -116,8 +116,7 @@ public class ClientManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager manager = ClientManager.getInstance();
-
+        ClientManager manager = new ClientManager();
         manager.addClient(dni, surname, name, birthDate, address);
 
         Client client = manager.getClient(dni);
@@ -129,17 +128,17 @@ public class ClientManagerTest {
         assertEquals(address, client.getAddress());
 
         assertThrows(IllegalArgumentException.class, () ->  manager.addClient(dni, surname, name, birthDate, address) );
-
-        manager.deleteClient(dni);
     }
 
     @Test
     void clientManagerShouldThrowExceptionIfTryingToDeleteNonExistentClient() {
         int nonExistentDni = 12345678;
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+        MarriageManager marriageManager = new MarriageManager(clientManager);
+
     
-        assertFalse(manager.clientExists(nonExistentDni));
-        assertThrows(IllegalArgumentException.class, () -> manager.deleteClient(nonExistentDni) );
+        assertFalse(clientManager.clientExists(nonExistentDni));
+        assertThrows(IllegalArgumentException.class, () -> clientManager.deleteClient(nonExistentDni, marriageManager) );
     }
 
     @Test
@@ -150,18 +149,16 @@ public class ClientManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager manager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+        MarriageManager marriageManager = new MarriageManager(clientManager);
 
-        manager.addClient(dni, surname, name, birthDate, address);
+        clientManager.addClient(dni, surname, name, birthDate, address);
 
-        Client client = manager.getClient(dni);
+        Client client = clientManager.getClient(dni);
         client.oneMoreRelatedAccount();  
 
-        assertTrue(manager.clientExists(dni));
-        assertThrows(IllegalArgumentException.class, () -> manager.deleteClient(dni) );
-
-        client.oneLessRelatedAccount();
-        manager.deleteClient(dni);
+        assertTrue(clientManager.clientExists(dni));
+        assertThrows(IllegalArgumentException.class, () -> clientManager.deleteClient(dni, marriageManager) );
     }
 
     @Test
@@ -178,8 +175,8 @@ public class ClientManagerTest {
         LocalDate birthDateSpouse = LocalDate.of(2002, Month.JUNE, 10);
         String addressSpouse = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
-        MarriageManager marriageManager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+        MarriageManager marriageManager = new MarriageManager(clientManager);
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
@@ -189,11 +186,9 @@ public class ClientManagerTest {
         assertTrue(marriageManager.isMarried(dni));
         assertTrue(marriageManager.isMarried(dniSpouse));
 
-        clientManager.deleteClient(dni);
+        clientManager.deleteClient(dni, marriageManager);
 
-        assertFalse(marriageManager.isMarried(dni));
+        assertThrows(IllegalArgumentException.class, () -> marriageManager.isMarried(dni) );
         assertFalse(marriageManager.isMarried(dniSpouse));
-
-        clientManager.deleteClient(dniSpouse);
     }
 }

@@ -6,20 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TransactionsManager {
-    private static TransactionsManager managerInstance;
     private int transactionsCount;
     private Map<Integer, Transaction> transactions;
 
-    private TransactionsManager() {
+    public TransactionsManager() {
         transactionsCount = 0;
         transactions = new HashMap<Integer, Transaction>();
-    }
-
-    public static TransactionsManager getInstance() {
-        if (managerInstance == null) {
-            managerInstance = new TransactionsManager();
-        }
-        return managerInstance;
     }
 
     public Transaction getTransaction(int idOfTransaction) {

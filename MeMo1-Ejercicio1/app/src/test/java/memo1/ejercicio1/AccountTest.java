@@ -126,7 +126,7 @@ class AccountTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
-        account.withdraw(50.0);
+        account.withdraw(12345678, 50.0);
         assertEquals(50.0, account.getBalance());
     }
 
@@ -135,7 +135,7 @@ class AccountTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
-        assertThrows(IllegalArgumentException.class, () -> account.withdraw(150.0));
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, 150.0));
     }
 
     @Test
@@ -143,7 +143,7 @@ class AccountTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
-        assertThrows(IllegalArgumentException.class, () -> account.withdraw(-10.0));
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, -10.0));
     }
 
     @Test
@@ -151,7 +151,37 @@ class AccountTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account account = new Account(123456789L, "iAmAccount", client, 1);
-        assertThrows(IllegalArgumentException.class, () -> account.withdraw(0.0));
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, 0.0));
+    }
+
+    @Test
+    void withdrawShouldThrowExceptionForNotRelatedDni() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+
+        int notRelatedDni = 11112222;
+
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(notRelatedDni, 10.0));
+    }
+
+    @Test
+    void withdrawShouldAllowOwnerAndCoOwners() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        
+        Account account = new Account(123456789L, "iAmAccount", 100.0, owner, 1);
+        
+        LocalDate coOwnerBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner = new Client(20000000, "Costas", "Ignacio", coOwnerBirthDate, "Av. Rivadavia 4523");
+
+        account.setNewCoOwner(coOwner);
+
+        account.withdraw(12345678, 10.0);
+        assertEquals(90.0, account.getBalance());
+
+        account.withdraw(20000000, 10.0);
+        assertEquals(80.0, account.getBalance());
     }
 
     @Test
@@ -159,7 +189,7 @@ class AccountTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
-        account.withdraw(100.0);
+        account.withdraw(12345678, 100.0);
         assertEquals(0.0, account.getBalance());
     }
 
@@ -171,7 +201,7 @@ class AccountTest {
         Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
         Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
-        senderAccount.transfer(100.0, receiverAccount);
+        senderAccount.transfer(12345678, 100.0, receiverAccount);
         assertEquals(900.0, senderAccount.getBalance());
         assertEquals(1100.0, receiverAccount.getBalance());
     }
@@ -184,7 +214,7 @@ class AccountTest {
         Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
         Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient,1);
-        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(2000.0, receiverAccount));
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 2000.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
@@ -197,7 +227,7 @@ class AccountTest {
         Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
         Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient,1);
-        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(-100.0, receiverAccount));
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, -100.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
@@ -210,7 +240,7 @@ class AccountTest {
         Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
         Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
-        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(0.0, receiverAccount));
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 0.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
@@ -221,10 +251,50 @@ class AccountTest {
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
         Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = senderAccount;
-        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(100.0, receiverAccount));
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 100.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
+    
+    @Test
+    void transferShouldThrowExceptionForNotRelatedDni() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");     
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
+
+        int notRelatedDni = 11112222;
+
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(notRelatedDni, 10.0, receiverAccount));
+    }
+
+    @Test
+    void transferShouldAllowOwnerAndCoOwners() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");     
+        
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        
+        Account senderAccount = new Account(123456789L, "iAmSender", 100.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 100.0, otherClient, 1);
+
+        LocalDate coOwnerBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner = new Client(20000000, "Costas", "Ignacio", coOwnerBirthDate, "Av. Rivadavia 4523");
+        
+        senderAccount.setNewCoOwner(coOwner);
+        
+        senderAccount.transfer(12345678, 10.0, receiverAccount);
+        assertEquals(90.0, senderAccount.getBalance());
+        assertEquals(110.0, receiverAccount.getBalance());
+
+        senderAccount.transfer(20000000, 10.0, receiverAccount);
+        assertEquals(80.0, senderAccount.getBalance());
+        assertEquals(120.0, receiverAccount.getBalance());
+    }
+
 
     @Test
     void accountShouldDetectItsOwnerAsOwner() {
@@ -259,7 +329,7 @@ class AccountTest {
 
         assertTrue(account.isCoOwner(20000000));
         assertTrue(account.isCoOwner(10000000));
-
+        assertEquals(2, account.getNumberOfCoOwners());
     }
 
     @Test
@@ -339,7 +409,6 @@ class AccountTest {
         assertTrue(account.isCoOwner(20000000));
         assertTrue(account.isCoOwner(10000000));
         assertFalse(account.isCoOwner(1));
-
     }
 
     @Test
@@ -357,7 +426,6 @@ class AccountTest {
         assertTrue(account.isCoOwner(20000000));
         assertThrows(IllegalArgumentException.class, () -> account.setNewCoOwner(sameOwner) );
         assertThrows(IllegalArgumentException.class, () -> account.setNewCoOwner(sameCoOwner) );
-
     }
 
 }

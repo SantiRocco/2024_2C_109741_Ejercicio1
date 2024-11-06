@@ -28,14 +28,16 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
+
+        assertEquals(1, manager.getNumberOfMarriages());
 
         assertTrue(manager.isMarried(dni));
         assertTrue(manager.isMarried(dniSpouse));
@@ -43,9 +45,6 @@ public class MarriageManagerTest {
         assertEquals(marriageDate, manager.getDateOfMarriage(dni));
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
 
@@ -65,17 +64,14 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.newMarriage(marriageDate, -1, dniSpouse) );
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
     
     @Test
@@ -94,17 +90,14 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.newMarriage(marriageDate, 0, dniSpouse) );
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
@@ -123,21 +116,18 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
         assertThrows(IllegalArgumentException.class, () -> manager.newMarriage(marriageDate, dni, dniSpouse) );
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
@@ -164,23 +154,19 @@ public class MarriageManagerTest {
 
         LocalDate amotnerMarriageDate = LocalDate.of(2022, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
         clientManager.addClient(dniThirdClient, surnameThirdClient, nameThirdClient, birthDateThirdClient, addressThirdClient);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
         assertThrows(IllegalArgumentException.class, () -> manager.newMarriage(amotnerMarriageDate, dniThirdClient, dniSpouse) );
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
-        clientManager.deleteClient(dniThirdClient);
     }
 
     @Test
@@ -199,12 +185,12 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
@@ -212,9 +198,6 @@ public class MarriageManagerTest {
         assertTrue(manager.isMarried(dniSpouse));
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
@@ -225,22 +208,22 @@ public class MarriageManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertFalse(manager.isMarried(dni));
-
-        clientManager.deleteClient(dni);
     }
 
     @Test
     void marriageManagerShouldThrowExceptionWhenSearchingIfClientIsMarriedThroughANegativeDni() {
         int negativeDni = -1;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.isMarried(negativeDni) );
     }
@@ -249,7 +232,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenSearchingIfClientIsMarriedThroughADniEqualToZero() {
         int zeroDni = 0;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.isMarried(zeroDni) );
     }
@@ -258,7 +243,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenSearchingIfPersonWhoIsNotAClientIsMarried() {
         int notClientDni = 999999;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.isMarried(notClientDni) );
     }
@@ -279,12 +266,12 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
         
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
@@ -292,9 +279,6 @@ public class MarriageManagerTest {
         assertEquals(marriageDate, manager.getDateOfMarriage(dniSpouse));
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
@@ -305,22 +289,22 @@ public class MarriageManagerTest {
         LocalDate notMarriedClientBirthDate = LocalDate.of(2000, Month.MAY, 17);
         String notMarriedClientAddress = "Av. Acoyte 245";
         
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(notMarriedClientDni, notMarriedClientSurname, notMarriedClientName, notMarriedClientBirthDate, notMarriedClientAddress);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getDateOfMarriage(notMarriedClientDni) );
-
-        clientManager.deleteClient(notMarriedClientDni);
     }
 
     @Test
     void marriageManagerShouldThrowExceptionWhenSearchingForDateOfMarriageThroughANegativeDni() {
         int negativeDni = -1;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getDateOfMarriage(negativeDni) );
     }
@@ -329,7 +313,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenSearchingForDateOfMarriageThroughAZeroDni() {
         int zeroDni = 0;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getDateOfMarriage(zeroDni) );
     }
@@ -350,12 +336,12 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
 
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
@@ -366,16 +352,15 @@ public class MarriageManagerTest {
         assertEquals( dni, spouseOfClient2 );
 
         manager.deleteMarriage(dni);
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
     void marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfNotMarriedPerson() {
         int notMarriedClientDni = 10000000;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getSpouseOfMarriedClientDni(notMarriedClientDni) );
     }
@@ -384,7 +369,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfMarriedPersonThroughANegativeDni() {
         int notMarriedClientDni = -1;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getSpouseOfMarriedClientDni(notMarriedClientDni) );
     }
@@ -393,7 +380,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfMarriedPersonThroughAZeroDni() {
         int notMarriedClientDni = 0;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getSpouseOfMarriedClientDni(notMarriedClientDni) );
     }
@@ -402,7 +391,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenTryingToGetSpouseOfPersonWhoIsNotClient() {
         int notClientDni = 999999;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.getSpouseOfMarriedClientDni(notClientDni) );
     }
@@ -423,16 +414,18 @@ public class MarriageManagerTest {
         
         LocalDate marriageDate = LocalDate.of(2021, Month.JANUARY, 1);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         clientManager.addClient(dniSpouse, surnameSpouse, nameSpouse, birthDateSpouse, addressSpouse);
         
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         manager.newMarriage(marriageDate, dni, dniSpouse);
 
         manager.deleteMarriage(dniSpouse);
+
+        assertEquals(0, manager.getNumberOfMarriages());
 
         assertFalse(manager.isMarried(dni));
         assertFalse(manager.isMarried(dniSpouse));
@@ -440,16 +433,15 @@ public class MarriageManagerTest {
         assertThrows(IllegalArgumentException.class, () -> manager.getSpouseOfMarriedClientDni(dniSpouse) );
         assertThrows(IllegalArgumentException.class, () -> manager.getDateOfMarriage(dni) );
         assertThrows(IllegalArgumentException.class, () -> manager.getDateOfMarriage(dniSpouse) );
-
-        clientManager.deleteClient(dni);
-        clientManager.deleteClient(dniSpouse);
     }
 
     @Test
     void marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithNegativeDni() {
         int negativeDni = -1;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.deleteMarriage(negativeDni) );
     }
@@ -458,7 +450,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithZeroDni() {
         int zeroDni = 0;
 
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.deleteMarriage(zeroDni) );
     }
@@ -467,7 +461,9 @@ public class MarriageManagerTest {
     void marriageManagerShouldThrowExceptionWhenTryingToDeleteMarriageWithNotClientDni() {
         int notClientDni = 9999999;
         
-        MarriageManager manager = MarriageManager.getInstance();
+        ClientManager clientManager = new ClientManager();
+
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.deleteMarriage(notClientDni) );
     }
@@ -480,14 +476,14 @@ public class MarriageManagerTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = new ClientManager();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
         
-        MarriageManager manager = MarriageManager.getInstance();
+        MarriageManager manager = new MarriageManager(clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> manager.deleteMarriage(dni) );
 
-        clientManager.deleteClient(dni);
+        clientManager.deleteClient(dni, manager);
     }
 }

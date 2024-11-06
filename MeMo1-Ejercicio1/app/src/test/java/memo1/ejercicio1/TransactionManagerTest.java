@@ -19,7 +19,7 @@ public class TransactionManagerTest {
         double amount = 100.0;
         Long accountCbu = 100111222L;
 
-        TransactionsManager manager = TransactionsManager.getInstance();
+        TransactionsManager manager = new TransactionsManager();
 
         int transactionId = manager.saveTransaction(date, hour, type, amount, accountCbu);
 
@@ -42,7 +42,7 @@ public class TransactionManagerTest {
         double amount = 100.0;
         Long accountCbu = 100111222L;
 
-        TransactionsManager manager = TransactionsManager.getInstance();
+        TransactionsManager manager = new TransactionsManager();
 
         int transactionId = manager.saveTransaction(date, hour, type, amount, accountCbu);
 
@@ -66,7 +66,7 @@ public class TransactionManagerTest {
         Long starterCbu = 100111222L;
         Long targetCbu = 111222333L;
 
-        TransactionsManager manager = TransactionsManager.getInstance();
+        TransactionsManager manager = new TransactionsManager();
 
         int transactionId = manager.saveTransaction(date, hour, type, amount, starterCbu, targetCbu);
 
@@ -97,7 +97,7 @@ public class TransactionManagerTest {
         Long starterCbu2 = 100111222L;
         Long targetCbu2 = 111222333L;
 
-        TransactionsManager manager = TransactionsManager.getInstance();
+        TransactionsManager manager = new TransactionsManager();
 
         int transaction1Id = manager.saveTransaction(date1, hour1, type1, amount1, starterCbu1, targetCbu1);
         int transaction2Id = manager.saveTransaction(date2, hour2, type2, amount2, starterCbu2, targetCbu2);
@@ -126,7 +126,7 @@ public class TransactionManagerTest {
     void transactionsManagerShouldThrowExceptionWhenTryingToGetNonExistentTransaction() {
         int nonExistentId = 1000;
         
-        TransactionsManager manager = TransactionsManager.getInstance();
+        TransactionsManager manager = new TransactionsManager();
 
         assertThrows(IllegalArgumentException.class, () -> manager.getTransaction(nonExistentId));       
     }

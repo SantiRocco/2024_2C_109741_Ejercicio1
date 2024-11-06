@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class BankSystemTest {
@@ -30,8 +31,6 @@ public class BankSystemTest {
         assertEquals("Av. Paseo Colon 900", branch.getAddress());
         assertEquals(0, branch.getNumberOfAccountsOfBranch());
         assertEquals(1, system.getNumberOfBranches());
-
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -47,8 +46,6 @@ public class BankSystemTest {
         int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         assertTrue(system.branchExists(branchNumber));
-
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -58,49 +55,6 @@ public class BankSystemTest {
         assertFalse(system.branchExists(999999));
     }
 
-    @Test
-    void bankSystemShouldDeleteExistingBranchCorrectly() {
-        BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
-
-        assertTrue(system.branchExists(branchNumber));
-
-        system.deleteBranch(branchNumber);
-
-        assertFalse(system.branchExists(branchNumber));
-        assertEquals(0, system.getNumberOfBranches());
-    }
-
-    @Test
-    void bankSystemShouldThrowExceptionWhenTryingToDeleteNonExistentBranch() {
-        BankSystem system = BankSystem.getInstance();
-
-        assertThrows(IllegalArgumentException.class, () -> system.deleteBranch(1000));
-    }
-
-    @Test
-    void bankSystemShouldThrowExceptionWhenTryingToDeleteBranchWithAssociatedAccounts() {
-        BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
-
-        int dni = 12345678;
-        String surname = "Fernandez";
-        String name = "Martin";
-        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
-        String address = "Av. Acoyte 245";
-
-        system.addClient(dni, surname, name, birthDate, address);
-
-        Branch branch = system.getBranch(branchNumber);
-        branch.createAccount(123456789L, "iAmAccount", 0, dni);
-
-        assertThrows(IllegalArgumentException.class, () -> system.deleteBranch(branchNumber));
-        
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
-    }
-    
     @Test
     void bankSystemShouldSuccessfullyCheckThatExistingAccountExistsThroughCbu() {
         BankSystem system = BankSystem.getInstance();
@@ -118,10 +72,6 @@ public class BankSystemTest {
         branch.createAccount(123456789L, "iAmAccount", 0, dni);
 
         assertTrue(system.accountExists(123456789L));
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -141,10 +91,6 @@ public class BankSystemTest {
         branch.createAccount(123456789L, "iAmAccount", 0, dni);
 
         assertTrue(system.accountExists("iAmAccount"));
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -170,10 +116,6 @@ public class BankSystemTest {
         assertEquals("iAmAccount", account.getAlias());
         assertTrue(account.isOwner(dni));
         assertEquals(branchNumber, account.getBranch());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -199,17 +141,11 @@ public class BankSystemTest {
         assertEquals("iAmAccount", account.getAlias());
         assertTrue(account.isOwner(dni));
         assertEquals(branchNumber, account.getBranch());
-
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyCheckThatExistingClientExists() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -220,27 +156,20 @@ public class BankSystemTest {
         system.addClient(dni, surname, name, birthDate, address);
 
         assertTrue(system.clientExists(dni));
-
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyCheckThatNonExistingClientDoesNotExist() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
 
         assertFalse(system.clientExists(dni));
-
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyGetClient() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -257,15 +186,11 @@ public class BankSystemTest {
         assertEquals("Martin", client.getName());
         assertEquals(birthDate, client.getBirthDate());
         assertEquals("Av. Acoyte 245", client.getAddress());
-
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyCheckThatMarriedClientIsMarried() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -288,16 +213,11 @@ public class BankSystemTest {
 
         assertTrue(system.isMarried(dni));
         assertTrue(system.isMarried(dniSpouse));
-
-        system.deleteClient(dni);
-        system.deleteClient(dniSpouse);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyCheckThatNotMarriedClientIsNotMarried() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -308,15 +228,11 @@ public class BankSystemTest {
         system.addClient(dni, surname, name, birthDate, address);
 
         assertFalse(system.isMarried(dni));
-
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyGetDateOfMarriage() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -338,16 +254,11 @@ public class BankSystemTest {
         system.newMarriage(marriageDate, dni, dniSpouse);
 
         assertEquals(marriageDate, system.getDateOfMarriage(dniSpouse));
-        
-        system.deleteClient(dni);
-        system.deleteClient(dniSpouse);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyGetSpouseOfMarriedClient() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -369,16 +280,11 @@ public class BankSystemTest {
         system.newMarriage(marriageDate, dni, dniSpouse);
 
         assertEquals(dniSpouse, system.getSpouseOfMarriedClientDni(dni));
-        
-        system.deleteClient(dni);
-        system.deleteClient(dniSpouse);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldSuccessfullyDeleteMarriage() {
         BankSystem system = BankSystem.getInstance();
-        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -408,10 +314,6 @@ public class BankSystemTest {
 
         assertFalse(system.isMarried(dni));
         assertFalse(system.isMarried(dniSpouse));
-
-        system.deleteClient(dni);
-        system.deleteClient(dniSpouse);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -435,10 +337,6 @@ public class BankSystemTest {
         Account account = system.getAccount(123456789L);
 
         assertEquals(100.0, account.getBalance());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -462,10 +360,6 @@ public class BankSystemTest {
         Account account = system.getAccount("iAmAccount");
 
         assertEquals(100.0, account.getBalance());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -484,15 +378,11 @@ public class BankSystemTest {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(123456789L, "iAmAccount", 250.0, dni);
 
-        system.withdraw(123456789L, 100.0);
+        system.withdraw(dni, 123456789L, 100.0);
 
         Account account = system.getAccount(123456789L);
 
         assertEquals(150.0, account.getBalance());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -511,15 +401,11 @@ public class BankSystemTest {
         Branch branch = system.getBranch(branchNumber);
         branch.createAccount(123456789L, "iAmAccount", 250.0, dni);
 
-        system.withdraw("iAmAccount", 100.0);
+        system.withdraw(dni, "iAmAccount", 100.0);
 
         Account account = system.getAccount("iAmAccount");
 
         assertEquals(150.0, account.getBalance());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -546,19 +432,13 @@ public class BankSystemTest {
         branch.createAccount(123456789L, "iAmSenderAccount", 500.0, senderDni);
         branch.createAccount(111222333L, "iAmReceiverAccount", 200.0, receiverDni);
 
-        system.transfer(123456789L, 111222333L, 100.0);
+        system.transfer(senderDni, 123456789L, 111222333L, 100.0);
 
         Account senderAccount = system.getAccount(123456789L);
         Account receiverAccount = system.getAccount(111222333L);
 
         assertEquals(400.0, senderAccount.getBalance());
         assertEquals(300.0, receiverAccount.getBalance());
-
-        branch.deleteAccount(123456789L);
-        branch.deleteAccount(111222333L);
-        system.deleteClient(senderDni);
-        system.deleteClient(receiverDni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -585,19 +465,13 @@ public class BankSystemTest {
         branch.createAccount(123456789L, "iAmSenderAccount", 500.0, senderDni);
         branch.createAccount(111222333L, "iAmReceiverAccount", 200.0, receiverDni);
 
-        system.transfer("iAmSenderAccount", "iAmReceiverAccount", 100.0);
+        system.transfer(senderDni, "iAmSenderAccount", "iAmReceiverAccount", 100.0);
 
         Account senderAccount = system.getAccount("iAmSenderAccount");
         Account receiverAccount = system.getAccount("iAmReceiverAccount");
 
         assertEquals(400.0, senderAccount.getBalance());
         assertEquals(300.0, receiverAccount.getBalance());
-
-        branch.deleteAccount("iAmSenderAccount");
-        branch.deleteAccount("iAmReceiverAccount");
-        system.deleteClient(senderDni);
-        system.deleteClient(receiverDni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -630,10 +504,6 @@ public class BankSystemTest {
         assertEquals(100.0, transaction.getAmount());
         assertEquals(123456789L, transaction.getStarterAccountCbu());
         assertEquals(123456789L, transaction.getTargetAccountCbu());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -666,10 +536,6 @@ public class BankSystemTest {
         assertEquals(100.0, transaction.getAmount());
         assertEquals(123456789L, transaction.getStarterAccountCbu());
         assertEquals(123456789L, transaction.getTargetAccountCbu());
-
-        branch.deleteAccount("iAmAccount");
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -691,7 +557,7 @@ public class BankSystemTest {
 
         LocalDate date = LocalDate.of(2024, Month.JANUARY, 2);
         LocalTime hour = LocalTime.of(13, 0, 0);
-        int transactionId = system.withdraw(date, hour, 123456789L, 40.0);
+        int transactionId = system.withdraw(date, hour, dni, 123456789L, 40.0);
 
         Transaction transaction = system.getTransaction(transactionId);
 
@@ -702,10 +568,6 @@ public class BankSystemTest {
         assertEquals(40.0, transaction.getAmount());
         assertEquals(123456789L, transaction.getStarterAccountCbu());
         assertEquals(123456789L, transaction.getTargetAccountCbu());
-
-        branch.deleteAccount(123456789L);
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -727,7 +589,7 @@ public class BankSystemTest {
 
         LocalDate date = LocalDate.of(2024, Month.JANUARY, 2);
         LocalTime hour = LocalTime.of(13, 0, 0);
-        int transactionId = system.withdraw(date, hour, "iAmAccount", 40.0);
+        int transactionId = system.withdraw(date, hour, dni, "iAmAccount", 40.0);
 
         Transaction transaction = system.getTransaction(transactionId);
 
@@ -738,10 +600,6 @@ public class BankSystemTest {
         assertEquals(40.0, transaction.getAmount());
         assertEquals(123456789L, transaction.getStarterAccountCbu());
         assertEquals(123456789L, transaction.getTargetAccountCbu());
-
-        branch.deleteAccount("iAmAccount");
-        system.deleteClient(dni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
@@ -770,7 +628,7 @@ public class BankSystemTest {
 
         LocalDate date = LocalDate.of(2024, Month.JANUARY, 2);
         LocalTime hour = LocalTime.of(13, 0, 0);
-        int transactionId = system.transfer(date, hour, 123456789L, 111222333L, 100.0);
+        int transactionId = system.transfer(date, hour, senderDni,123456789L, 111222333L, 100.0);
 
         Transaction transaction = system.getTransaction(transactionId);
 
@@ -781,56 +639,49 @@ public class BankSystemTest {
         assertEquals(100.0, transaction.getAmount());
         assertEquals(123456789L, transaction.getStarterAccountCbu());
         assertEquals(111222333L, transaction.getTargetAccountCbu());
-
-        branch.deleteAccount(123456789L);
-        branch.deleteAccount(111222333L);
-        system.deleteClient(senderDni);
-        system.deleteClient(receiverDni);
-        system.deleteBranch(branchNumber);
     }
 
     @Test
     void bankSystemShouldCorrectlySaveTransactionWhenTransferingToAnotherAccountThroughAlias() {
-            BankSystem system = BankSystem.getInstance();
-            int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
-    
-            int senderDni = 12345678;
-            String senderSurname = "Fernandez";
-            String senderName = "Martin";
-            LocalDate senderBirthDate = LocalDate.of(2000, Month.MAY, 17);
-            String senderAddress = "Av. Acoyte 245";
-    
-            int receiverDni = 14000000;
-            String receiverSurname = "Ferreira";
-            String receivertName = "Maria";
-            LocalDate receiverBirthDate = LocalDate.of(2001, Month.JUNE, 10);
-            String receiverAddress = "Av. Acoyte 245";
-    
-            system.addClient(senderDni, senderSurname, senderName, senderBirthDate, senderAddress);
-            system.addClient(receiverDni, receiverSurname, receivertName, receiverBirthDate, receiverAddress);
-    
-            Branch branch = system.getBranch(branchNumber);
-            branch.createAccount(123456789L, "iAmSenderAccount", 500.0, senderDni);
-            branch.createAccount(111222333L, "iAmReceiverAccount", 200.0, receiverDni);
-    
-            LocalDate date = LocalDate.of(2024, Month.JANUARY, 2);
-            LocalTime hour = LocalTime.of(13, 0, 0);
-            int transactionId = system.transfer(date, hour, "iAmSenderAccount", "iAmReceiverAccount", 100.0);
-    
-            Transaction transaction = system.getTransaction(transactionId);
-    
-            assertEquals(transactionId, transaction.getId());
-            assertEquals(date, transaction.getDateOfOperation());
-            assertEquals(hour, transaction.getHourOfOperation());
-            assertEquals(TransactionType.TRANSFER, transaction.getTypeOfOperation());
-            assertEquals(100.0, transaction.getAmount());
-            assertEquals(123456789L, transaction.getStarterAccountCbu());
-            assertEquals(111222333L, transaction.getTargetAccountCbu());
-    
-            branch.deleteAccount("iAmSenderAccount");
-            branch.deleteAccount("iAmReceiverAccount");
-            system.deleteClient(senderDni);
-            system.deleteClient(receiverDni);
-            system.deleteBranch(branchNumber);
-        }
+        BankSystem system = BankSystem.getInstance();
+        int branchNumber = system.createBranch("Suc. Belgrano", "Av. Paseo Colon 900");
+
+        int senderDni = 12345678;
+        String senderSurname = "Fernandez";
+        String senderName = "Martin";
+        LocalDate senderBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        String senderAddress = "Av. Acoyte 245";
+
+        int receiverDni = 14000000;
+        String receiverSurname = "Ferreira";
+        String receivertName = "Maria";
+        LocalDate receiverBirthDate = LocalDate.of(2001, Month.JUNE, 10);
+        String receiverAddress = "Av. Acoyte 245";
+
+        system.addClient(senderDni, senderSurname, senderName, senderBirthDate, senderAddress);
+        system.addClient(receiverDni, receiverSurname, receivertName, receiverBirthDate, receiverAddress);
+
+        Branch branch = system.getBranch(branchNumber);
+        branch.createAccount(123456789L, "iAmSenderAccount", 500.0, senderDni);
+        branch.createAccount(111222333L, "iAmReceiverAccount", 200.0, receiverDni);
+
+        LocalDate date = LocalDate.of(2024, Month.JANUARY, 2);
+        LocalTime hour = LocalTime.of(13, 0, 0);
+        int transactionId = system.transfer(date, hour, senderDni, "iAmSenderAccount", "iAmReceiverAccount", 100.0);
+
+        Transaction transaction = system.getTransaction(transactionId);
+
+        assertEquals(transactionId, transaction.getId());
+        assertEquals(date, transaction.getDateOfOperation());
+        assertEquals(hour, transaction.getHourOfOperation());
+        assertEquals(TransactionType.TRANSFER, transaction.getTypeOfOperation());
+        assertEquals(100.0, transaction.getAmount());
+        assertEquals(123456789L, transaction.getStarterAccountCbu());
+        assertEquals(111222333L, transaction.getTargetAccountCbu());
+    }
+
+    @AfterEach
+    public final void bankSystemRestart() {
+      BankSystem.getInstance().clearEntireSystem();
+    }
 }

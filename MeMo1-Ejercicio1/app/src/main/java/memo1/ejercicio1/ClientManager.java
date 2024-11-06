@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientManager {
-
-    private static ClientManager managerInstance;
+    private int numberOfClients;
     private Map<Integer, Client> clients = new HashMap<Integer, Client>();
 
-    private ClientManager() {
+    public ClientManager() {
         clients = new HashMap<Integer, Client>();
     }
 
@@ -19,11 +18,8 @@ public class ClientManager {
         }
     }
 
-    public static ClientManager getInstance() {
-        if (managerInstance == null) {
-            managerInstance = new ClientManager();
-        }
-        return managerInstance;
+    public int getNumberOfClients() {
+        return numberOfClients;
     }
 
     public boolean clientExists(int dni) {
@@ -38,19 +34,20 @@ public class ClientManager {
             throw new IllegalArgumentException("Client already exists");
         }
         clients.put(dni, newClient);
+        numberOfClients++;
     }
 
-    public void deleteClient(int dni) {
+    public void deleteClient(int dni, MarriageManager marriageManager) {
         if (!this.clientExists(dni)){
             throw new IllegalArgumentException("Client does not exist.");
         } else if (clients.get(dni).getNumberOfRelatedAccounts() > 0) {
             throw new IllegalArgumentException("Cannot delete client with related accounts.");
         }
-        MarriageManager marriageManager = MarriageManager.getInstance();
         if (marriageManager.isMarried(dni)) {
             marriageManager.deleteMarriage(dni);
         }
         clients.remove(dni);
+        numberOfClients--;
     }
 
     public Client getClient(int dni) {

@@ -35,6 +35,12 @@ public class Account {
         }
     }
 
+    private void checkIfClientIsRelatedToAccount(int dni) {
+        if (!isOwner(dni) && !isCoOwner(dni)) {
+            throw new IllegalArgumentException("DNI passed must correspond to the owner or one of the co-owners");
+        }
+    }
+
     public Account(Long cbu, String alias, Client owner, int branch) {
         checkIfBalanceIsInvalid(balance);
         checkIfBranchNumberIsInvalid(branch);
@@ -85,6 +91,10 @@ public class Account {
         Client result = coOwners.get(dni);
         return result != null;
     }
+
+    public int getNumberOfCoOwners() {
+        return coOwners.size();
+    }
     
     public void setNewCoOwner(Client newCoOwner) {
         if (this.isCoOwner(newCoOwner.getDni()) || newCoOwner.getDni() == owner.getDni() ){
@@ -113,14 +123,16 @@ public class Account {
         balance += amount;
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(int relatedDni, double amount) {
+        checkIfClientIsRelatedToAccount(relatedDni);
         if (amount <= 0 || amount > balance) {
             throw new IllegalArgumentException("Amount to withdraw cannot be nagative or zero.");
         }
         balance -= amount;
     }
 
-    public void transfer(double amount, Account otherAccount) {
+    public void transfer(int relatedDni, double amount, Account otherAccount) {
+        checkIfClientIsRelatedToAccount(relatedDni);
         if ( amount <= 0 ) {
             throw new IllegalArgumentException("Amount to transfer cannot be nagative or zero.");
         } else if ( this.getBalance() < amount ) {
@@ -128,7 +140,7 @@ public class Account {
         } else if ( this.getCbu().equals( otherAccount.getCbu() ) && this.getAlias().equals( otherAccount.getAlias() ) ) {
             throw new IllegalArgumentException("Cannot transfer to same account.");
         }
-        this.withdraw(amount);
+        this.withdraw(relatedDni, amount);
         otherAccount.deposit(amount);
     }
 

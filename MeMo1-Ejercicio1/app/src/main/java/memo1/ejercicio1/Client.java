@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Client {
     private int dni;
-    private int numberOfRelatedAccounts;
     private String surname;
     private String name;
     private LocalDate birthDate;
     private String address;
+    private int numberOfRelatedAccounts;
 
     private void checkIfDniIsInvalid(int dni) {
         if (dni <= 0) {
@@ -67,7 +67,7 @@ public class Client {
     }
 
     public void oneLessRelatedAccount() {
-        if (numberOfRelatedAccounts == 0) {
+        if (numberOfRelatedAccounts <= 0) {
             throw new IllegalArgumentException("Client already has no related accounts.");
         }
         numberOfRelatedAccounts--;

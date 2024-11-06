@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AccountManager {
-    private static AccountManager managerInstance;
     private int numberOfAccounts;
     private Map<Long, Account> accountsCbuAsKey;
     private Map<String, Account> accountsAliasAsKey;
 
-    private AccountManager() {
+    public AccountManager() {
         numberOfAccounts = 0;
         accountsCbuAsKey = new HashMap<Long, Account>();
         accountsAliasAsKey = new HashMap<String, Account>();
@@ -19,13 +18,6 @@ public class AccountManager {
         if (accountExists(cbu) || accountExists(alias)){
             throw new IllegalArgumentException("Account already exists");
         }
-    }
-
-    public static AccountManager getInstance() {
-        if (managerInstance == null) {
-            managerInstance = new AccountManager();
-        }
-        return managerInstance;
     }
 
     public boolean accountExists(Long cbu) {
@@ -76,10 +68,13 @@ public class AccountManager {
         if (!accountExists(cbu)){
             throw new IllegalArgumentException("Account does not exist.");
         }
-        Account clientToRemove = accountsCbuAsKey.get(cbu);
+        Account accountToRemove = accountsCbuAsKey.get(cbu);
+        if (accountToRemove.getBalance() > 0.0) {
+            throw new IllegalArgumentException("Cannot delete account with money still in it.");
+        }
         String alias = getAccount(cbu).getAlias();
 
-        clientToRemove.disassociateOwnerAndCoOwners();
+        accountToRemove.disassociateOwnerAndCoOwners();
 
         accountsCbuAsKey.remove(cbu);
         accountsAliasAsKey.remove(alias);
@@ -91,10 +86,13 @@ public class AccountManager {
         if (!accountExists(alias)){
             throw new IllegalArgumentException("Account does not exist.");
         }
-        Account clientToRemove = accountsAliasAsKey.get(alias);
+        Account accountToRemove = accountsAliasAsKey.get(alias);
+        if (accountToRemove.getBalance() > 0.0) {
+            throw new IllegalArgumentException("Cannot delete account with money still in it.");
+        }
         Long cbu = getAccount(alias).getCbu();
 
-        clientToRemove.disassociateOwnerAndCoOwners();
+        accountToRemove.disassociateOwnerAndCoOwners();
 
         accountsCbuAsKey.remove(cbu);
         accountsAliasAsKey.remove(alias);

@@ -12,13 +12,14 @@ class AccountManagerTest {
 
     @Test
     void constructorShouldInitializeNumberOfAccountsToZero() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
+
         assertEquals(0, manager.getNumberOfAccounts());
     }
 
     @Test
     void accountManagerShouldCorrectlySetBalanceWhenAddingAccountWithBalance() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -26,13 +27,11 @@ class AccountManagerTest {
         manager.createAccount(123456789L, "iAmAccount", 500.0, client, 1);
 
         assertEquals(500.0, manager.getAccount("iAmAccount").getBalance());
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldCorrectlyAddToCounterWhenAddingOneAccount() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -40,13 +39,11 @@ class AccountManagerTest {
         manager.createAccount(123456789L, "iAmAccount", client, 1);
 
         assertEquals(1, manager.getNumberOfAccounts());
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldCorrectlySubstractOfCounterWhenAddingOneAccount() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -62,7 +59,7 @@ class AccountManagerTest {
 
     @Test
     void accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -70,13 +67,11 @@ class AccountManagerTest {
         manager.createAccount(123456789L, "iAmAccount", client, 1);
 
         assertTrue(manager.accountExists(123456789L));
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldCorrectlyDetectThatExistentAccountExistsWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -84,27 +79,25 @@ class AccountManagerTest {
         manager.createAccount(123456789L, "iAmAccount", client, 1);
 
         assertTrue(manager.accountExists("iAmAccount"));
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldCorrectlyDetectThatNonExistentAccountDoesNotExistWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         assertFalse(manager.accountExists(100000000L));
     }
 
     @Test
     void accountManagerShouldCorrectlyDetectThatNonExistentAccountDoesNotExistWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         assertFalse(manager.accountExists("iAmNonExistentAccount"));
     }
 
     @Test
     void accountManagerShouldCorrectlyGetExistingAccountWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -118,13 +111,11 @@ class AccountManagerTest {
         assertEquals("iAmAccount", account.getAlias());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldCorrectlyGetExistingAccountWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -138,27 +129,25 @@ class AccountManagerTest {
         assertEquals("iAmAccount", account.getAlias());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldThrowExceptionWhenTryingToGetNonExistentAccountWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         assertThrows(IllegalArgumentException.class, () -> manager.getAccount(100000000L));
     }
 
     @Test
     void accountManagerShouldThrowExceptionWhenTryingToGetNonExistentAccountWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         assertThrows(IllegalArgumentException.class, () -> manager.getAccount("iAmNonExistentAccount"));
     }
 
     @Test
     void accountManagerShouldCorrectlyDeleteExistingAccountWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -181,7 +170,7 @@ class AccountManagerTest {
 
     @Test
     void accountManagerShouldCorrectlyDeleteExistingAccountWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -204,7 +193,7 @@ class AccountManagerTest {
 
     @Test
     void accountManagerShouldCorrectlyReduceNumberOfRelatedAccountsOfOwnerAndCoOwnersOfAccountWhenDeletingIt() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
@@ -238,40 +227,55 @@ class AccountManagerTest {
 
     @Test
     void accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         assertThrows(IllegalArgumentException.class, () -> manager.deleteAccount(100000000L));
     }
 
     @Test
     void accountManagerShouldThrowExceptionWhenTryingToDeleteNonExistentAccountWithAlias() {
-        AccountManager manager = AccountManager.getInstance();
-
+        AccountManager manager = new AccountManager();
         assertThrows(IllegalArgumentException.class, () -> manager.deleteAccount("iAmNonExistentAccount"));
     }
 
     @Test
+    void accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithCbu() {
+        AccountManager manager = new AccountManager();
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");    
+        manager.createAccount(123456789L, "iAmAccount", 100.0,  client, 1);
+
+        assertThrows(IllegalArgumentException.class, () -> manager.deleteAccount(100000000L));
+    }
+
+    @Test
+    void accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithAlias() {
+        AccountManager manager = new AccountManager();
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");    
+        manager.createAccount(123456789L, "iAmAccount", 100.0,  client, 1);
+
+        assertThrows(IllegalArgumentException.class, () -> manager.deleteAccount(100000000L));
+    }
+
+    @Test
     void accountManagerShouldThrowExceptionWhenTryingToAccountWithSameCbu() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");    
         manager.createAccount(123456789L, "iAmAccount", client, 1);
         assertThrows(IllegalArgumentException.class, () -> manager.createAccount(123456789L, "iAmAnotherAccount", client, 1));
-
-        manager.deleteAccount(123456789L);
     }
 
     @Test
     void accountManagerShouldThrowExceptionWhenTryingToAccountWithSameAlias() {
-        AccountManager manager = AccountManager.getInstance();
+        AccountManager manager = new AccountManager();
 
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
         
         manager.createAccount(123456789L, "iAmAccount", client, 1);
         assertThrows(IllegalArgumentException.class, () -> manager.createAccount(111222333L, "iAmAccount", client, 1));
-
-        manager.deleteAccount(123456789L);
     }
 }

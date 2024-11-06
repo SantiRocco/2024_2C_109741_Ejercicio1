@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MarriageManager {
-    private static MarriageManager managerInstance;
+    private ClientManager clientManager;
+    private int numberOfMarriages;
     private Map<Integer, Marriage> marriagesClient1AsKey;
     private Map<Integer, Marriage> marriagesClient2AsKey;
 
-    private MarriageManager() {
+    public MarriageManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
         marriagesClient1AsKey = new HashMap<Integer, Marriage>();
         marriagesClient2AsKey = new HashMap<Integer, Marriage>();
     }
@@ -17,7 +19,7 @@ public class MarriageManager {
     private void checkIfDniIsInvalid(int dni) {
         if (dni <= 0) {
             throw new IllegalArgumentException("DNI cannot be negative or zero.");
-        } else if (!ClientManager.getInstance().clientExists(dni)) {
+        } else if (!clientManager.clientExists(dni)) {
             throw new IllegalArgumentException("DNI must be of existent client.");
         }
     }
@@ -31,11 +33,8 @@ public class MarriageManager {
         }
     }
 
-    public static MarriageManager getInstance() {
-        if (managerInstance == null) {
-            managerInstance = new MarriageManager();
-        }
-        return managerInstance;
+    public int getNumberOfMarriages() {
+        return numberOfMarriages;
     }
 
     public boolean isMarried(int dni) {
@@ -79,6 +78,7 @@ public class MarriageManager {
         Marriage newMarriage = new Marriage(date, newSpouse1Dni, newSpouse2Dni);
         marriagesClient1AsKey.put(newSpouse1Dni, newMarriage);
         marriagesClient2AsKey.put(newSpouse2Dni, newMarriage);
+        numberOfMarriages++;
     }
 
     public void deleteMarriage(int clientDni) {
@@ -88,5 +88,6 @@ public class MarriageManager {
         int spouseOfClientDni = getSpouseOfMarriedClientDni(clientDni);
         deleteClient(clientDni);
         deleteClient(spouseOfClientDni);
+        numberOfMarriages--;
     }
 }

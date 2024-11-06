@@ -1,5 +1,6 @@
 package memo1.ejercicio1;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,7 +14,9 @@ public class BranchTest {
 
     @Test
     void constructorShouldInitializeAllDataCorrectly() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
         assertEquals(0, branch.getNumberOfAccountsOfBranch());
         assertEquals(1, branch.getNumberOfBranch());
         assertEquals("Suc. Belgrano", branch.getName());
@@ -22,17 +25,23 @@ public class BranchTest {
 
     @Test
     void constructorShouldThrowExceptionIfNumberOfInstanceIsNegative() {
-        assertThrows(IllegalArgumentException.class, () -> new Branch(-1, "Suc. Belgrano", "Av. Paseo Colon 900"));
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        assertThrows(IllegalArgumentException.class, () -> new Branch(-1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager));
     }    
 
     @Test
     void constructorShouldThrowExceptionIfNumberOfInstanceIsZero() {
-        assertThrows(IllegalArgumentException.class, () -> new Branch(0, "Suc. Belgrano", "Av. Paseo Colon 900"));
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        assertThrows(IllegalArgumentException.class, () -> new Branch(0, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager));
     }   
     
     @Test
     void branchShouldBeAbleToChangeItsName() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         assertEquals("Suc. Belgrano", branch.getName());
 
@@ -43,7 +52,9 @@ public class BranchTest {
 
     @Test
     void branchShouldBeAbleToChangeItsAddress() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         assertEquals("Av. Paseo Colon 900", branch.getAddress());
 
@@ -53,17 +64,41 @@ public class BranchTest {
     }   
 
     @Test
-    void branchShouldCorrectlyCreateAndGetAccountWithCbu() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+    void branchShouldCorrectlyCreateAccountWithDefaultBalance() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
         String name = "Martin";
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
+        
+        clientManager.addClient(dni, surname, name, birthDate, address);
 
-        ClientManager clientManager = ClientManager.getInstance();
+        branch.createAccount(123456789L, "iAmAccount", 12345678);
 
+        Account account = branch.getAccount(123456789L);
+
+        assertEquals(123456789L, account.getCbu());
+        assertEquals("iAmAccount", account.getAlias());
+        assertEquals(0.0, account.getBalance());
+        assertTrue(account.isOwner(12345678));
+        assertEquals(1, account.getBranch());
+    }
+
+    @Test
+    void branchShouldCorrectlyCreateAccountWithCustomBalance() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        int dni = 12345678;
+        String surname = "Fernandez";
+        String name = "Martin";
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        String address = "Av. Acoyte 245";
         
         clientManager.addClient(dni, surname, name, birthDate, address);
 
@@ -77,22 +112,45 @@ public class BranchTest {
         assertEquals(50.0, account.getBalance());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
-
-        branch.deleteAccount(123456789L);
-        clientManager.deleteClient(dni);
     }
 
     @Test
-    void branchShouldCorrectlyCreateAndGetAccountWithAlias() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+    void branchShouldCorrectlyGetAccountThroughCbu() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
         String name = "Martin";
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
+        
+        clientManager.addClient(dni, surname, name, birthDate, address);
 
-        ClientManager clientManager = ClientManager.getInstance();
+
+        branch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
+
+        Account account = branch.getAccount(123456789L);
+
+        assertEquals(123456789L, account.getCbu());
+        assertEquals("iAmAccount", account.getAlias());
+        assertEquals(50.0, account.getBalance());
+        assertTrue(account.isOwner(12345678));
+        assertEquals(1, account.getBranch());
+    }
+
+    @Test
+    void branchShouldCorrectlyGetAccountThroughAlias() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        int dni = 12345678;
+        String surname = "Fernandez";
+        String name = "Martin";
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        String address = "Av. Acoyte 245";
 
         clientManager.addClient(dni, surname, name, birthDate, address);
 
@@ -106,14 +164,13 @@ public class BranchTest {
         assertEquals(50.0, account.getBalance());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
-
-        branch.deleteAccount(123456789L);
-        clientManager.deleteClient(dni);
     }
 
     @Test
     void branchShouldCorrectlyDeleteAccountWithCbu() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -121,18 +178,16 @@ public class BranchTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
-
         clientManager.addClient(dni, surname, name, birthDate, address);
 
-        branch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
+        branch.createAccount(123456789L, "iAmAccount", 12345678);
 
         Account account = branch.getAccount(123456789L);
 
         assertEquals(1, branch.getNumberOfAccountsOfBranch());
         assertEquals(123456789L, account.getCbu());
         assertEquals("iAmAccount", account.getAlias());
-        assertEquals(50.0, account.getBalance());
+        assertEquals(0.0, account.getBalance());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
 
@@ -140,13 +195,13 @@ public class BranchTest {
     
         assertEquals(0, branch.getNumberOfAccountsOfBranch());
         assertThrows(IllegalArgumentException.class, () -> branch.getAccount(123456789L));
-
-        clientManager.deleteClient(dni);
     }
 
     @Test
     void branchShouldCorrectlyDeleteAccountWithAlias() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -154,18 +209,16 @@ public class BranchTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
-
         clientManager.addClient(dni, surname, name, birthDate, address);
 
-        branch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
+        branch.createAccount(123456789L, "iAmAccount", 12345678);
 
         Account account = branch.getAccount("iAmAccount");
 
         assertEquals(1, branch.getNumberOfAccountsOfBranch());
         assertEquals(123456789L, account.getCbu());
         assertEquals("iAmAccount", account.getAlias());
-        assertEquals(50.0, account.getBalance());
+        assertEquals(0.0, account.getBalance());
         assertTrue(account.isOwner(12345678));
         assertEquals(1, account.getBranch());
 
@@ -173,101 +226,134 @@ public class BranchTest {
     
         assertEquals(0, branch.getNumberOfAccountsOfBranch());
         assertThrows(IllegalArgumentException.class, () -> branch.getAccount(123456789L));
+    }
+    
+    @Test
+    void accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithCbu() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
-        clientManager.deleteClient(dni);
+        int dni = 12345678;
+        String surname = "Fernandez";
+        String name = "Martin";
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        String address = "Av. Acoyte 245";
+
+        clientManager.addClient(dni, surname, name, birthDate, address);
+
+        branch.createAccount(123456789L, "iAmAccount", 100.0,  12345678);
+
+        assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount(123456789L));
+    }
+
+    @Test
+    void accountManagerShouldThrowExceptionWhenTryingToDeleteAccountWithMoneyWithAlias() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        int dni = 12345678;
+        String surname = "Fernandez";
+        String name = "Martin";
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        String address = "Av. Acoyte 245";
+
+        clientManager.addClient(dni, surname, name, birthDate, address);
+
+        branch.createAccount(123456789L, "iAmAccount", 100.0, 12345678);
+
+        assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount("iAmAccount"));
     }
 
     @Test
     void branchShouldThrowExceptionWhenTryingToCreateAccountWithDniOfNonExistentClient() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> branch.createAccount(123456789L, "iAmAccount", 50.0, 10000000));
     }
 
     @Test
     void branchShouldThrowExceptionWhenTryingToGetNonExistentAccount() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
         assertThrows(IllegalArgumentException.class, () -> branch.getAccount(123456789L));
     }
 
     @Test
     void branchShouldThrowExceptionWhenTryingToGetAccountOfDifferentBranchWithCbu() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
-        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000");
+        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
         String name = "Martin";
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
-
-        ClientManager clientManager = ClientManager.getInstance();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
 
         anotherBranch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
 
         assertThrows(IllegalArgumentException.class, () -> branch.getAccount(123456789L));
-
-        anotherBranch.deleteAccount(123456789L);
-        clientManager.deleteClient(dni);
     }
 
     @Test
     void branchShouldThrowExceptionWhenTryingToGetAccountOfDifferentBranchWithAlias() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
-        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000");
+        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
         String name = "Martin";
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
-
-        ClientManager clientManager = ClientManager.getInstance();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
 
         anotherBranch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
 
         assertThrows(IllegalArgumentException.class, () -> branch.getAccount("iAmAccount"));
-
-        anotherBranch.deleteAccount("iAmAccount");
-        clientManager.deleteClient(dni);
     }  
 
     @Test
     void branchShouldThrowExceptionWhenTryingToDeleteAccountOfDifferentBranchWithCbu() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
-
-        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+        
+        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
         String name = "Martin";
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
-
-        ClientManager clientManager = ClientManager.getInstance();
 
         clientManager.addClient(dni, surname, name, birthDate, address);
 
         anotherBranch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
 
         assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount(123456789L));
-
-        anotherBranch.deleteAccount(123456789L);
-        clientManager.deleteClient(dni);
     }
 
     @Test
     void branchShouldThrowExceptionWhenTryingToDeleteAccountOfDifferentBranchWithAlias() {
-        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900");
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
 
-        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000");
+        Branch anotherBranch = new Branch(2, "Suc. Palermo", "Av. Corrientes 5000", accountManager, clientManager);
 
         int dni = 12345678;
         String surname = "Fernandez";
@@ -275,16 +361,73 @@ public class BranchTest {
         LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
         String address = "Av. Acoyte 245";
 
-        ClientManager clientManager = ClientManager.getInstance();
-
         clientManager.addClient(dni, surname, name, birthDate, address);
 
         anotherBranch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
 
         assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount("iAmAccount"));
+    }
 
-        anotherBranch.deleteAccount("iAmAccount");
-        clientManager.deleteClient(dni);
-    }   
+    @Test
+    void branchShouldShowCorrectlyThatItIsActive() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        assertTrue(branch.isActive());
+    } 
+
+    @Test
+    void branchShouldShowCorrectlyThatItIsInactiveWhenInactivated() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        branch.inactivate();
+
+        assertFalse(branch.isActive());
+    }
+
+    @Test
+    void branchShouldThrowExceptionWhenTryingToInactivateItWhenItStillHasRelatedAccounts() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        
+        int dni = 12345678;
+        String surname = "Fernandez";
+        String name = "Martin";
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        String address = "Av. Acoyte 245";
+
+        clientManager.addClient(dni, surname, name, birthDate, address);
+
+        branch.createAccount(123456789L, "iAmAccount", 50.0, 12345678);
+
+        assertThrows(IllegalArgumentException.class, () -> branch.inactivate());
+    } 
+
+    @Test
+    void branchShouldThrowExceptionWhenDoingAnyOperationWhileInactive() {
+        AccountManager accountManager = new AccountManager();
+        ClientManager clientManager = new ClientManager();
+        Branch branch = new Branch(1, "Suc. Belgrano", "Av. Paseo Colon 900", accountManager, clientManager);
+
+        branch.inactivate();
+
+        assertThrows(IllegalArgumentException.class, () -> branch.changeAddress("newAddress"));
+        assertThrows(IllegalArgumentException.class, () -> branch.changeName("newName"));
+        assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount("alias"));
+        assertThrows(IllegalArgumentException.class, () -> branch.deleteAccount(123L));
+        assertThrows(IllegalArgumentException.class, () -> branch.getAccount("alias"));
+        assertThrows(IllegalArgumentException.class, () -> branch.getAccount(123L));
+        assertThrows(IllegalArgumentException.class, () -> branch.getAddress());
+        assertThrows(IllegalArgumentException.class, () -> branch.getName());
+        assertThrows(IllegalArgumentException.class, () -> branch.getNumberOfAccountsOfBranch());
+        assertThrows(IllegalArgumentException.class, () -> branch.getNumberOfBranch());
+        assertThrows(IllegalArgumentException.class, () -> branch.createAccount(null, null, 0));
+        assertThrows(IllegalArgumentException.class, () -> branch.createAccount(null, null, 0.0, 0));
+    }
 
 }
