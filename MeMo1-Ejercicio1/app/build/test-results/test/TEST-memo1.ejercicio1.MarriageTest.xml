@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="memo1.ejercicio1.MarriageTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.014">
+  <properties/>
+  <testcase name="constructorShouldThrowExceptionIfBothDnisAreEqual()" classname="memo1.ejercicio1.MarriageTest" time="0.001"/>
+  <testcase name="marriageShouldSaveAllDataCorrectly()" classname="memo1.ejercicio1.MarriageTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfOneDniIsZero()" classname="memo1.ejercicio1.MarriageTest" time="0.0"/>
+  <testcase name="marriageShouldDetectOnlySpousesAsInMarriage()" classname="memo1.ejercicio1.MarriageTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionIfOneDniIsNegative()" classname="memo1.ejercicio1.MarriageTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

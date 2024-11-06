@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="memo1.ejercicio1.ClientTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.025">
+  <properties/>
+  <testcase name="clientShouldThrowExceptionWhenTryingToDecreaseRelatedAccountsCounterWhenItIsAtZero()" classname="memo1.ejercicio1.ClientTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfDniIsZero()" classname="memo1.ejercicio1.ClientTest" time="0.001"/>
+  <testcase name="clientShouldBeAbleToChangeNameSurnameAndAddress()" classname="memo1.ejercicio1.ClientTest" time="0.0"/>
+  <testcase name="clientShouldInitializeWithCorrectValues()" classname="memo1.ejercicio1.ClientTest" time="0.001"/>
+  <testcase name="clientShouldBeAbleToDecreaseItsRelatedAccountsCounter()" classname="memo1.ejercicio1.ClientTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionIfDniIsNegative()" classname="memo1.ejercicio1.ClientTest" time="0.001"/>
+  <testcase name="clientShouldBeAbleToIncreaseItsRelatedAccountsCounter()" classname="memo1.ejercicio1.ClientTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

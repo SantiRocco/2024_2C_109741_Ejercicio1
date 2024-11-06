@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="memo1.ejercicio1.AccountTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2024-09-03T23:52:37" hostname="codespaces-464e0c" time="0.107">
+<testsuite name="memo1.ejercicio1.AccountTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.057">
   <properties/>
-  <testcase name="constructorWithCbuShouldInitializeCorrectly()" classname="memo1.ejercicio1.AccountTest" time="0.04"/>
-  <testcase name="defaultConstructorShouldInitializeBalanceToZero()" classname="memo1.ejercicio1.AccountTest" time="0.004"/>
-  <testcase name="withdrawShouldReturnFalseIfAmountExceedsBalance()" classname="memo1.ejercicio1.AccountTest" time="0.002"/>
-  <testcase name="withdrawShouldAllowExactAmount()" classname="memo1.ejercicio1.AccountTest" time="0.004"/>
-  <testcase name="constructorShouldThrowExceptionIfBalanceIsNegative()" classname="memo1.ejercicio1.AccountTest" time="0.002"/>
-  <testcase name="depositShouldReturnFalseForNegativeAmount()" classname="memo1.ejercicio1.AccountTest" time="0.002"/>
-  <testcase name="withdrawShouldReturnFalseForNegativeAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
-  <testcase name="constructorShouldSetBalanceCorrectly()" classname="memo1.ejercicio1.AccountTest" time="0.004"/>
-  <testcase name="depositShouldIncreaseBalance()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
-  <testcase name="withdrawShouldDecreaseBalance()" classname="memo1.ejercicio1.AccountTest" time="0.002"/>
-  <testcase name="setBalanceShouldThrowExceptionIfBalanceIsNegative()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="defaultConstructorShouldInitializeBalanceToZero()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="depositShouldThrowExceptionForZeroAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="withdrawShouldThrowExceptionForZeroAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfCbuIsZero()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="transferShouldAllowOwnerAndCoOwners()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="withdrawShouldAllowOwnerAndCoOwners()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="withdrawShouldAllowExactAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfClientIsNull()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfBalanceIsNegative()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="transferShouldThrowExceptionWhenTransferringToSameAccount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="transferShouldThrowExceptionForNegativeAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="depositShouldThrowExceptionForNegativeAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfCbuIsNegative()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldDetectItsOwnerAsOwner()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="constructorShouldThrowExceptionIfBranchNumberIsZero()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldSaveCorrectlyItsCoOwners()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="withdrawShouldThrowExceptionForNotRelatedDni()" classname="memo1.ejercicio1.AccountTest" time="0.002"/>
+  <testcase name="withdrawShouldThrowExceptionIfAmountExceedsBalance()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="defaultConstructorShouldSetDataCorrectly()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldSetBalanceCorrectly()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldThrowExceptionWhenTryingToRemoveNonExistentCoOwner()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="withdrawShouldThrowExceptionForNegativeAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldShouldNotDetectItsCoOwnersAsOwners()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="depositShouldIncreaseBalance()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="transferShouldDecreaseSenderAccountBalanceAndIncreaseReceiverAccountBalance()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldNotDetectItsOwnerAsCoOwner()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="constructorShouldThrowExceptionIfBranchNumberIsNegative()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="withdrawShouldDecreaseBalance()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="accountShouldNotLetSaveAlreadyIncludedClients()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="transferShouldThrowExceptionForNotRelatedDni()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldNotdetectExcludedClientDniAsCoOwner()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="transferShouldThrowExceptionForAmountHigherThanBalanceAvailable()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="transferShouldThrowExceptionForZeroAmount()" classname="memo1.ejercicio1.AccountTest" time="0.001"/>
+  <testcase name="accountShouldCorrectlyRemoveCoOwner()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
+  <testcase name="constructorWithCbuAndAliasShouldInitializeCorrectly()" classname="memo1.ejercicio1.AccountTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

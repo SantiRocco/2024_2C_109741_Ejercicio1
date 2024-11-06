@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="memo1.ejercicio1.ClientManagerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-11-06T19:31:56" hostname="codespaces-4d7fba" time="0.028">
+  <properties/>
+  <testcase name="clientManagerShouldSaveClientDataCorrectly()" classname="memo1.ejercicio1.ClientManagerTest" time="0.0"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToAddAlreadyExistingClient()" classname="memo1.ejercicio1.ClientManagerTest" time="0.005"/>
+  <testcase name="clientManagerShouldGetClientCorrectly()" classname="memo1.ejercicio1.ClientManagerTest" time="0.003"/>
+  <testcase name="clientManagerShouldSuccessfullyDeleteMarriageWhenDeletingMarriedClient()" classname="memo1.ejercicio1.ClientManagerTest" time="0.001"/>
+  <testcase name="clientManagerShouldCorrectlyDeleteClient()" classname="memo1.ejercicio1.ClientManagerTest" time="0.002"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToGetClientWithZeroDni()" classname="memo1.ejercicio1.ClientManagerTest" time="0.001"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToGetClientWithNegativeDni()" classname="memo1.ejercicio1.ClientManagerTest" time="0.002"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToDeleteClientWithRelatedAccounts()" classname="memo1.ejercicio1.ClientManagerTest" time="0.003"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToDeleteNonExistentClient()" classname="memo1.ejercicio1.ClientManagerTest" time="0.003"/>
+  <testcase name="clientManagerShouldThrowExceptionIfTryingToGetNonExistentClient()" classname="memo1.ejercicio1.ClientManagerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

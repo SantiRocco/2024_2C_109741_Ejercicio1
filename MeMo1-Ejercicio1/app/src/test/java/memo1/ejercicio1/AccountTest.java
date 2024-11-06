@@ -3,131 +3,429 @@ package memo1.ejercicio1;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 // Pruebas unitarias
 
 class AccountTest {
 
     @Test
     void defaultConstructorShouldInitializeBalanceToZero() {
-        Account account = new Account();
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");
+        Account account = new Account(123456789L, "iAmAccount", client, 1);
         assertEquals(0.0, account.getBalance());
     }
 
     @Test
     void constructorShouldSetBalanceCorrectly() {
-        Account account = new Account(100.0);
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
         assertEquals(100.0, account.getBalance());
+    }
+
+    @Test
+    void defaultConstructorShouldSetDataCorrectly() {
+        int clientDni = 12345678;
+        String clientSurname  = "Fernandez";
+        String clientName = "Martin";
+        LocalDate clientBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        String clientAddress = "Av. Acoyte 245";
+        Client newClient = new Client(clientDni, clientSurname, clientName, clientBirthDate, clientAddress);
+
+        Long accountCbu = 123456789L;
+        String accountAlias = "iAmAccount";
+        int branch = 1;
+        Account account = new Account(accountCbu, accountAlias, newClient, branch);
+        assertEquals(0.0, account.getBalance());
+        assertEquals(accountCbu, account.getCbu());
+        assertEquals(accountAlias, account.getAlias());
+        assertTrue(account.isOwner(clientDni));
+        assertEquals(branch, account.getBranch());
     }
 
     @Test
     void constructorShouldThrowExceptionIfBalanceIsNegative() {
-        assertThrows(IllegalArgumentException.class, () -> new Account(-50.0));
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");        
+        assertThrows(IllegalArgumentException.class, () -> new Account(123456789L, "iAmAccount", -50.0, client, 1));
     }
 
     @Test
-    void constructorWithCbuShouldInitializeCorrectly() {
-        Account account = new Account(123456789L, 100.0);
+    void constructorShouldThrowExceptionIfClientIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> new Account(123456789L, "iAmAccount", 100.0, null, 1));
+    }
+
+    @Test
+    void constructorShouldThrowExceptionIfCbuIsNegative() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        assertThrows(IllegalArgumentException.class, () -> new Account(-1L, "iAmAccount", 100.0, client, 1));
+    }
+
+    @Test
+    void constructorShouldThrowExceptionIfCbuIsZero() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        assertThrows(IllegalArgumentException.class, () -> new Account(0L, "iAmAccount", 100.0, client, 1));
+    }
+
+    @Test
+    void constructorShouldThrowExceptionIfBranchNumberIsNegative() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        assertThrows(IllegalArgumentException.class, () -> new Account(123456789L, "iAmAccount", 100.0, client, -1));
+    }
+
+    @Test
+    void constructorShouldThrowExceptionIfBranchNumberIsZero() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        assertThrows(IllegalArgumentException.class, () -> new Account(123456789L, "iAmAccount", 100.0, client, 0));
+    }
+
+    @Test
+    void constructorWithCbuAndAliasShouldInitializeCorrectly() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client,  1);
         assertEquals(123456789L, account.getCbu());
+        assertEquals("iAmAccount", account.getAlias());
         assertEquals(100.0, account.getBalance());
     }
 
     @Test
-    void setBalanceShouldThrowExceptionIfBalanceIsNegative() {
-        Account account = new Account();
-        assertThrows(IllegalArgumentException.class, () -> account.setBalance(-1.0));
-    }
-
-    @Test
     void depositShouldIncreaseBalance() {
-        Account account = new Account();
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", client, 1);
         account.deposit(50.0);
         assertEquals(50.0, account.getBalance());
     }
 
     @Test
-    void depositShouldReturnFalseForNegativeAmount() {
-        Account account = new Account();
-        assertFalse(account.deposit(-10.0));
+    void depositShouldThrowExceptionForNegativeAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", client, 1);
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(-10.0));
+    }
+
+    @Test
+    void depositShouldThrowExceptionForZeroAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", client, 1);
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(0.0));
     }
 
     @Test
     void withdrawShouldDecreaseBalance() {
-        Account account = new Account(100.0);
-        assertTrue(account.withdraw(50.0));
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+        account.withdraw(12345678, 50.0);
         assertEquals(50.0, account.getBalance());
     }
 
     @Test
-    void withdrawShouldReturnFalseIfAmountExceedsBalance() {
-        Account account = new Account(100.0);
-        assertFalse(account.withdraw(150.0));
+    void withdrawShouldThrowExceptionIfAmountExceedsBalance() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, 150.0));
     }
 
     @Test
-    void withdrawShouldReturnFalseForNegativeAmount() {
-        Account account = new Account(100.0);
-        assertFalse(account.withdraw(-10.0));
+    void withdrawShouldThrowExceptionForNegativeAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, -10.0));
+    }
+
+    @Test
+    void withdrawShouldThrowExceptionForZeroAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", client, 1);
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(12345678, 0.0));
+    }
+
+    @Test
+    void withdrawShouldThrowExceptionForNotRelatedDni() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+
+        int notRelatedDni = 11112222;
+
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(notRelatedDni, 10.0));
+    }
+
+    @Test
+    void withdrawShouldAllowOwnerAndCoOwners() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        
+        Account account = new Account(123456789L, "iAmAccount", 100.0, owner, 1);
+        
+        LocalDate coOwnerBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner = new Client(20000000, "Costas", "Ignacio", coOwnerBirthDate, "Av. Rivadavia 4523");
+
+        account.setNewCoOwner(coOwner);
+
+        account.withdraw(12345678, 10.0);
+        assertEquals(90.0, account.getBalance());
+
+        account.withdraw(20000000, 10.0);
+        assertEquals(80.0, account.getBalance());
     }
 
     @Test
     void withdrawShouldAllowExactAmount() {
-        Account account = new Account(100.0);
-        assertTrue(account.withdraw(100.0));
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmAccount", 100.0, client, 1);
+        account.withdraw(12345678, 100.0);
         assertEquals(0.0, account.getBalance());
     }
 
     @Test
     void transferShouldDecreaseSenderAccountBalanceAndIncreaseReceiverAccountBalance() {
-        Account senderAccount = new Account(123456789L, 1000.0);
-        Account receiverAccount = new Account(111222333L, 1000.0);
-        assertTrue(senderAccount.transfer(100.0, receiverAccount));
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");   
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
+        senderAccount.transfer(12345678, 100.0, receiverAccount);
         assertEquals(900.0, senderAccount.getBalance());
         assertEquals(1100.0, receiverAccount.getBalance());
     }
 
     @Test
-    void transferShouldReturnFalseForAmountHigherThanBalanceAvailable() {
-        Account senderAccount = new Account(123456789L, 1000.0);
-        Account receiverAccount = new Account(111222333L, 1000.0);
-        assertFalse(senderAccount.transfer(2000.0, receiverAccount));
+    void transferShouldThrowExceptionForAmountHigherThanBalanceAvailable() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient,1);
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 2000.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
 
     @Test
-    void transferShouldReturnFalseForNegativeAmount() {
-        Account senderAccount = new Account(123456789L, 1000.0);
-        Account receiverAccount = new Account(111222333L, 1000.0);
-        assertFalse(senderAccount.transfer(-100.0, receiverAccount));
+    void transferShouldThrowExceptionForNegativeAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient,1);
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, -100.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
 
     @Test
-    void transferShouldReturnFalseForZeroAmount() {
-        Account senderAccount = new Account(123456789L, 1000.0);
-        Account receiverAccount = new Account(111222333L, 1000.0);
-        assertFalse(senderAccount.transfer(0.0, receiverAccount));
+    void transferShouldThrowExceptionForZeroAmount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");     
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 0.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
     }
 
     @Test
-    void transferShouldReturnFalseWhenTransferringToAccountWithNoCbu() {
-        Account senderAccount = new Account(123456789L, 1000.0);
-        Account accountWithNoCbu = new Account(1000.0);
-        assertFalse(senderAccount.transfer(100.0, accountWithNoCbu));
-        assertEquals(1000.0, senderAccount.getBalance());
-        assertEquals(1000.0, accountWithNoCbu.getBalance());
-    }
-
-    @Test
-    void transferShouldReturnFalseWhenTransferringToSameAccount() {
-        Account senderAccount = new Account(123456789L, 1000.0);
+    void transferShouldThrowExceptionWhenTransferringToSameAccount() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
         Account receiverAccount = senderAccount;
-        assertFalse(senderAccount.transfer(100.0, receiverAccount));
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(12345678, 100.0, receiverAccount));
         assertEquals(1000.0, senderAccount.getBalance());
         assertEquals(1000.0, receiverAccount.getBalance());
+    }
+    
+    @Test
+    void transferShouldThrowExceptionForNotRelatedDni() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");     
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        Account senderAccount = new Account(123456789L, "iAmSender", 1000.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 1000.0, otherClient, 1);
+
+        int notRelatedDni = 11112222;
+
+        assertThrows(IllegalArgumentException.class, () -> senderAccount.transfer(notRelatedDni, 10.0, receiverAccount));
+    }
+
+    @Test
+    void transferShouldAllowOwnerAndCoOwners() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client client = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");     
+        
+        LocalDate otherBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client otherClient = new Client(20000000, "Costas", "Ignacio", otherBirthDate, "Av. Rivadavia 4523");
+        
+        Account senderAccount = new Account(123456789L, "iAmSender", 100.0, client, 1);
+        Account receiverAccount = new Account(111222333L, "iAmReceiver", 100.0, otherClient, 1);
+
+        LocalDate coOwnerBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner = new Client(20000000, "Costas", "Ignacio", coOwnerBirthDate, "Av. Rivadavia 4523");
+        
+        senderAccount.setNewCoOwner(coOwner);
+        
+        senderAccount.transfer(12345678, 10.0, receiverAccount);
+        assertEquals(90.0, senderAccount.getBalance());
+        assertEquals(110.0, receiverAccount.getBalance());
+
+        senderAccount.transfer(20000000, 10.0, receiverAccount);
+        assertEquals(80.0, senderAccount.getBalance());
+        assertEquals(120.0, receiverAccount.getBalance());
+    }
+
+
+    @Test
+    void accountShouldDetectItsOwnerAsOwner() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        
+        assertTrue(account.isOwner(12345678));
+    }
+
+    @Test
+    void accountShouldNotDetectItsOwnerAsCoOwner() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        
+        assertFalse(account.isCoOwner(12345678));
+    }
+
+    @Test
+    void accountShouldSaveCorrectlyItsCoOwners() {
+        LocalDate ownerBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", ownerBirthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwner1BirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner1 = new Client(20000000, "Costas", "Ignacio", coOwner1BirthDate, "Av. Rivadavia 4523");
+        LocalDate coOwner2BirthDate = LocalDate.of(1998, Month.FEBRUARY, 28);
+        Client coOwner2 = new Client(10000000, "Lechuga", "Daniel", coOwner2BirthDate, "Cucha Cucha 400");
+
+        account.setNewCoOwner(coOwner1);
+        account.setNewCoOwner(coOwner2);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertTrue(account.isCoOwner(10000000));
+        assertEquals(2, account.getNumberOfCoOwners());
+    }
+
+    @Test
+    void accountShouldShouldNotDetectItsCoOwnersAsOwners() {
+        LocalDate ownerBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", ownerBirthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwner1BirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner1 = new Client(20000000, "Costas", "Ignacio", coOwner1BirthDate, "Av. Rivadavia 4523");
+        LocalDate coOwner2BirthDate = LocalDate.of(1998, Month.FEBRUARY, 28);
+        Client coOwner2 = new Client(10000000, "Lechuga", "Daniel", coOwner2BirthDate, "Cucha Cucha 400");
+
+        account.setNewCoOwner(coOwner1);
+        account.setNewCoOwner(coOwner2);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertTrue(account.isCoOwner(10000000));
+        assertFalse(account.isOwner(20000000));
+        assertFalse(account.isOwner(10000000));
+
+    }
+
+    @Test
+    void accountShouldCorrectlyRemoveCoOwner() {
+        LocalDate ownerBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", ownerBirthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwner1BirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner1 = new Client(20000000, "Costas", "Ignacio", coOwner1BirthDate, "Av. Rivadavia 4523");
+        LocalDate coOwner2BirthDate = LocalDate.of(1998, Month.FEBRUARY, 28);
+        Client coOwner2 = new Client(10000000, "Lechuga", "Daniel", coOwner2BirthDate, "Cucha Cucha 400");
+        
+        account.setNewCoOwner(coOwner1);
+        account.setNewCoOwner(coOwner2);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertTrue(account.isCoOwner(10000000));
+
+        account.removeCoOwner(10000000);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertFalse(account.isCoOwner(10000000));
+    }
+
+    @Test
+    void accountShouldThrowExceptionWhenTryingToRemoveNonExistentCoOwner() {
+        LocalDate ownerBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", ownerBirthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwner1BirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner1 = new Client(20000000, "Costas", "Ignacio", coOwner1BirthDate, "Av. Rivadavia 4523");
+        LocalDate coOwner2BirthDate = LocalDate.of(1998, Month.FEBRUARY, 28);
+        Client coOwner2 = new Client(10000000, "Lechuga", "Daniel", coOwner2BirthDate, "Cucha Cucha 400");
+        
+        account.setNewCoOwner(coOwner1);
+        account.setNewCoOwner(coOwner2);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertTrue(account.isCoOwner(10000000));
+
+        assertThrows(IllegalArgumentException.class, () -> account.removeCoOwner(1) );
+    }
+
+    @Test
+    void accountShouldNotdetectExcludedClientDniAsCoOwner() {
+        LocalDate ownerBirthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", ownerBirthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwner1BirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner1 = new Client(20000000, "Costas", "Ignacio", coOwner1BirthDate, "Av. Rivadavia 4523");
+        LocalDate coOwner2BirthDate = LocalDate.of(1998, Month.FEBRUARY, 28);
+        Client coOwner2 = new Client(10000000, "Lechuga", "Daniel", coOwner2BirthDate, "Cucha Cucha 400");
+        
+        account.setNewCoOwner(coOwner1);
+        account.setNewCoOwner(coOwner2);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertTrue(account.isCoOwner(10000000));
+        assertFalse(account.isCoOwner(1));
+    }
+
+    @Test
+    void accountShouldNotLetSaveAlreadyIncludedClients() {
+        LocalDate birthDate = LocalDate.of(2000, Month.MAY, 17);
+        Client owner = new Client(12345678, "Fernandez", "Martin", birthDate, "Av. Acoyte 245");      
+        Account account = new Account(123456789L, "iAmSender", 1000.0, owner, 1);
+        LocalDate coOwnerBirthDate = LocalDate.of(2003, Month.MARCH, 4);
+        Client coOwner = new Client(20000000, "Costas", "Ignacio", coOwnerBirthDate, "Av. Rivadavia 4523");
+        Client sameOwner = owner;
+        Client sameCoOwner = coOwner;
+        
+        account.setNewCoOwner(coOwner);
+
+        assertTrue(account.isCoOwner(20000000));
+        assertThrows(IllegalArgumentException.class, () -> account.setNewCoOwner(sameOwner) );
+        assertThrows(IllegalArgumentException.class, () -> account.setNewCoOwner(sameCoOwner) );
     }
 
 }
