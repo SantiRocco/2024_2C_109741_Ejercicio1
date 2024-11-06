@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="77" time="3.157">
-    <testcase classname="Co-ownership of account" name="Successfully setting one co-owner when creating a new account" time="0.065">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="77" time="3.159">
+    <testcase classname="Co-ownership of account" name="Successfully setting one co-owner when creating a new account" time="0.081">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -11,7 +11,7 @@ And The client with DNI 20100100 should be a co-owner of the account........pass
 And The client with DNI 20100100 should have 1 related account/s............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Co-ownership of account" name="Successfully setting various co-owners when creating a new account" time="0.033">
+    <testcase classname="Co-ownership of account" name="Successfully setting various co-owners when creating a new account" time="0.021">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -26,7 +26,7 @@ And The client with DNI 19700900 should be a co-owner of the account........pass
 And The client with DNI 19700900 should have 1 related account/s............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Co-ownership of account" name="Owner cannot be co-owner" time="0.015">
+    <testcase classname="Co-ownership of account" name="Owner cannot be co-owner" time="0.012">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -34,14 +34,14 @@ When I try to set the client with DNI 11222333 as co-owner..................pass
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Co-ownership of account" name="Account may have no co-owners" time="0.017">
+    <testcase classname="Co-ownership of account" name="Account may have no co-owners" time="0.013">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
 Then The account should have 0 co-owner/s...................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Co-ownership of account" name="Account cannot have non-existent co-owners" time="0.03">
+    <testcase classname="Co-ownership of account" name="Account cannot have non-existent co-owners" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -50,7 +50,7 @@ When I try to set the client with DNI 5000000 as co-owner...................pass
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Co-ownership of account" name="Co-owners have one less related account when account is deleted" time="0.026">
+    <testcase classname="Co-ownership of account" name="Co-owners have one less related account when account is deleted" time="0.015">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -61,35 +61,35 @@ Then The client with DNI 20100100 should have 0 related account/s...........pass
 And The client with DNI 19700900 should have 0 related account/s............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Successfully create an account with default balance" time="0.029">
+    <testcase classname="Account creation" name="Successfully create an account with default balance" time="0.021">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
 Then The account balance should be 0.0......................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Successfully create an account with an initial balance" time="0.006">
+    <testcase classname="Account creation" name="Successfully create an account with an initial balance" time="0.01">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 500.0, with client of DNI 11222333 as owner and created by branch 1.passed
 Then The account balance should be 500.0....................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with negative CBU" time="0.009">
+    <testcase classname="Account creation" name="Cannot create an account with negative CBU" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I try to create an account with CBU -1, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with zero CBU" time="0.018">
+    <testcase classname="Account creation" name="Cannot create an account with zero CBU" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I try to create an account with CBU 0, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with already existent CBU" time="0.01">
+    <testcase classname="Account creation" name="Cannot create an account with already existent CBU" time="0.003">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -97,7 +97,7 @@ When I try to create an account with CBU 123456789, alias "iAmOtherAccount", wit
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with already existent alias" time="0.006">
+    <testcase classname="Account creation" name="Cannot create an account with already existent alias" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -112,35 +112,35 @@ When I try to create an account with CBU 123456789, alias "iAmAccount", balance 
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with negative branch number" time="0.006">
+    <testcase classname="Account creation" name="Cannot create an account with negative branch number" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I try to create an account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch -1.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with branch number as zero" time="0.008">
+    <testcase classname="Account creation" name="Cannot create an account with branch number as zero" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I try to create an account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 0.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with non-existent client" time="0.046">
+    <testcase classname="Account creation" name="Cannot create an account with non-existent client" time="0.017">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A non-existent client DNI like 5000000..................................passed
 When I try to create an account with CBU 123456789, alias "iAmAccount", with client of DNI 5000000 as owner and created by branch 1.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Account creation" name="Cannot create an account with non-existent branch" time="0.005">
+    <testcase classname="Account creation" name="Cannot create an account with non-existent branch" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I try to create an account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 9999.passed
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="account deletion" name="Successfully delete an account" time="0.013">
+    <testcase classname="account deletion" name="Successfully delete an account" time="0.012">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -149,7 +149,7 @@ Then The account should not be found anymore................................pass
 Then The client with DNI 11222333 should have 0 related account/s...........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="account deletion" name="Cannot delete an account with positive balance" time="0.008">
+    <testcase classname="account deletion" name="Cannot delete an account with positive balance" time="0.016">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 100.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -158,7 +158,7 @@ Then The operation should be denied.........................................pass
 Then The client with DNI 11222333 should have 1 related account/s...........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Ownership of account" name="Successfully setting the main owner when creating a new account" time="0.007">
+    <testcase classname="Ownership of account" name="Successfully setting the main owner when creating a new account" time="0.01">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -166,14 +166,14 @@ Then The client with DNI 11222333 should be the owner of the account........pass
 And The client with DNI 11222333 should have 1 related account/s............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Ownership of account" name="Account cannot have non-existent owner" time="0.013">
+    <testcase classname="Ownership of account" name="Account cannot have non-existent owner" time="0.014">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A non-existent client DNI like 5000000..................................passed
 When I try to create an account with CBU 123456789, alias "iAmAccount", with client of DNI 5000000 as owner and created by branch 1.passed
 Then The operation should be denied due to the client not existing..........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Ownership of account" name="Owner has one less related account when account is deleted" time="0.01">
+    <testcase classname="Ownership of account" name="Owner has one less related account when account is deleted" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -181,20 +181,20 @@ When I delete the account...................................................pass
 Then The client with DNI 11222333 should have 0 related account/s...........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Branch creation" name="Successfully create a new branch" time="0.003">
+    <testcase classname="Branch creation" name="Successfully create a new branch" time="0.011">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 Then The name of the branch should be "Suc. Palermo"........................passed
 And The address of the branch should be "Av. Lavalle 2500"..................passed
 And The number of branch should be 1........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Branch deactivation" name="Successfully deactivate a new branch" time="0.003">
+    <testcase classname="Branch deactivation" name="Successfully deactivate a new branch" time="0.006">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 When I deactivate the branch................................................passed
 Then The branch should be inactive..........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Branch deactivation" name="Cannot deactivate branch with associated accounts" time="0.005">
+    <testcase classname="Branch deactivation" name="Cannot deactivate branch with associated accounts" time="0.009">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -202,7 +202,7 @@ When I try to deactivate the branch.........................................pass
 Then The operation should be denied due to it having associated accounts....passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying branch information" name="successfully modify branch name" time="0.007">
+    <testcase classname="Modifying branch information" name="successfully modify branch name" time="0.012">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 When I change the name of the branch to "Suc. Palermo Soho".................passed
 Then The new name of the branch should be "Suc. Palermo Soho"...............passed
@@ -214,7 +214,7 @@ When I change the address of the branch to "Av. Lavalle 2650"...............pass
 Then The new address of the branch should be "Av. Lavalle 2650".............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Client creation" name="Successfully create a client with all the right data" time="0.012">
+    <testcase classname="Client creation" name="Successfully create a client with all the right data" time="0.008">
         <system-out><![CDATA[Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 Then The surname of the client should be "Gregory"..........................passed
 And The name of the client should be "John".................................passed
@@ -235,7 +235,7 @@ When I delete the client....................................................pass
 Then The client with DNI 11222333 should not be found anymore...............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Client deletion" name="Cannot delete client with associated accounts" time="0.006">
+    <testcase classname="Client deletion" name="Cannot delete client with associated accounts" time="0.009">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", with client of DNI 11222333 as owner and created by branch 1.passed
@@ -244,35 +244,35 @@ Then The operation should be denied due to the client having associated accounts
 Then The client with DNI 11222333 should have 1 related account/s...........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Client deletion" name="Cannot delete non-existent client" time="0.006">
+    <testcase classname="Client deletion" name="Cannot delete non-existent client" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A non-existent client DNI like 5000000..................................passed
 When I try to delete the non-existent client................................passed
 Then The operation should be denied due to the client not existing..........passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Successfully modify client name" time="0.016">
+    <testcase classname="Modifying client information" name="Successfully modify client name" time="0.017">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I change the name of the client to "Humberto"..........................passed
 Then The name of the client should be "Humberto"............................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Successfully modify client surname" time="0.006">
+    <testcase classname="Modifying client information" name="Successfully modify client surname" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I change the surname of the client to "Donogan"........................passed
 Then The surname of the client should be "Donogan"..........................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Successfully modify client address" time="0.006">
+    <testcase classname="Modifying client information" name="Successfully modify client address" time="0.009">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 When I change the address of the client to "Av. Lavalle 2650"...............passed
 Then The address of the client should be "Av. Lavalle 2650".................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Successfully register marriage between two clients and both of them are married" time="0.018">
+    <testcase classname="Modifying client information" name="Successfully register marriage between two clients and both of them are married" time="0.017">
         <system-out><![CDATA[Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A client with DNI 20100100, surname "Garcia", name "Daisy", born on "2000-10-15" and with address "Cortina 223".passed
 When I register a new marriage on date "2024-01-01" between DNI 11222333 and DNI 20100100.passed
@@ -281,14 +281,14 @@ And The client with DNI 11222333 should be married to the client with DNI 201001
 And The client with DNI 20100100 should be married to the client with DNI 11222333.passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Two clients are not married" time="0.007">
+    <testcase classname="Modifying client information" name="Two clients are not married" time="0.006">
         <system-out><![CDATA[Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A client with DNI 20100100, surname "Garcia", name "Daisy", born on "2000-10-15" and with address "Cortina 223".passed
 Then The client with DNI 11222333 should not be married to the client with DNI 20100100.passed
 Then The client with DNI 20100100 should not be married to the client with DNI 11222333.passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Marriage record is deleted when one of the clients involved is deleted" time="0.009">
+    <testcase classname="Modifying client information" name="Marriage record is deleted when one of the clients involved is deleted" time="0.007">
         <system-out><![CDATA[Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A client with DNI 20100100, surname "Garcia", name "Daisy", born on "2000-10-15" and with address "Cortina 223".passed
 And A new marriage on date "2024-01-01" between DNI 11222333 and DNI 20100100.passed
@@ -297,7 +297,7 @@ Then The client with DNI 11222333 should not be married.....................pass
 And The client with DNI 20100100 should not be married......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Cannot register marriage with one non-existent client" time="0.006">
+    <testcase classname="Modifying client information" name="Cannot register marriage with one non-existent client" time="0.004">
         <system-out><![CDATA[Given A non-existent client DNI like 5000000................................passed
 And A client with DNI 20100100, surname "Garcia", name "Daisy", born on "2000-10-15" and with address "Cortina 223".passed
 When I try to register a new marriage on date "2024-01-01" between DNI 5000000 and DNI 20100100.passed
@@ -305,7 +305,7 @@ Then The operation should be denied due to non-existent spouse..............pass
 And The client with DNI 20100100 should not be married......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Modifying client information" name="Cannot register marriage when one client is already married" time="0.016">
+    <testcase classname="Modifying client information" name="Cannot register marriage when one client is already married" time="0.017">
         <system-out><![CDATA[Given A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A client with DNI 20100100, surname "Garcia", name "Daisy", born on "2000-10-15" and with address "Cortina 223".passed
 And A client with DNI 21000000, surname "Ferreira", name "Maria", born on "2002-06-10" and with address "Av. Acoyte 245".passed
@@ -317,7 +317,7 @@ And The client with DNI 20100100 should be married..........................pass
 And The client with DNI 21000000 should not be married......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Successfully deposit money into an account through CBU" time="0.02">
+    <testcase classname="Depositing money" name="Successfully deposit money into an account through CBU" time="0.021">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -325,7 +325,7 @@ When I deposit 200.0 into the account through CBU...........................pass
 Then The account balance should be 1200.0...................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Successfully deposit money into an account through alias" time="0.008">
+    <testcase classname="Depositing money" name="Successfully deposit money into an account through alias" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -333,7 +333,7 @@ When I deposit 200.0 into the account through alias.........................pass
 Then The account balance should be 1200.0...................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Successfully create a transaction record when carrying out a deposit" time="0.017">
+    <testcase classname="Depositing money" name="Successfully create a transaction record when carrying out a deposit" time="0.013">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -347,7 +347,7 @@ And Transaction with id 1 should have 123456789 as starter account CBU......pass
 And Transaction with id 1 should have 123456789 as target account CBU.......passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Cannot deposit a negative amount" time="0.005">
+    <testcase classname="Depositing money" name="Cannot deposit a negative amount" time="0.012">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -356,7 +356,7 @@ Then The operation should be denied.........................................pass
 And The account balance should remain 1000.0................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Cannot deposit a zero amount" time="0.008">
+    <testcase classname="Depositing money" name="Cannot deposit a zero amount" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -365,7 +365,7 @@ Then The operation should be denied.........................................pass
 And The account balance should remain 1000.0................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Cannot deposit into a non-existent account through CBU" time="0.005">
+    <testcase classname="Depositing money" name="Cannot deposit into a non-existent account through CBU" time="0.004">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account CBU like 111122223...............................passed
@@ -373,7 +373,7 @@ When I try to deposit 100.0 into the non-existent account through CBU.......pass
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Cannot deposit into a non-existent account through alias" time="0.008">
+    <testcase classname="Depositing money" name="Cannot deposit into a non-existent account through alias" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account alias like "iAmNotAccount".......................passed
@@ -381,7 +381,7 @@ When I try to deposit 100.0 into the non-existent account through alias.....pass
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Depositing money" name="Transaction record is not created if deposit fails" time="0.003">
+    <testcase classname="Depositing money" name="Transaction record is not created if deposit fails" time="0.006">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -389,7 +389,7 @@ When I try to deposit 200.0 into the account................................pass
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Successfully transfer money from one account to another through alias" time="0.033">
+    <testcase classname="Transferring money through alias" name="Successfully transfer money from one account to another through alias" time="0.018">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -399,7 +399,7 @@ Then The sender account balance should be 900.0.............................pass
 And The receiver account balance should be 1100.0...........................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Successfully create a transaction record when carrying out a transfer through alias" time="0.03">
+    <testcase classname="Transferring money through alias" name="Successfully create a transaction record when carrying out a transfer through alias" time="0.022">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -414,7 +414,7 @@ And Transaction with id 1 should have 123456789 as starter account CBU......pass
 And Transaction with id 1 should have 111222333 as target account CBU.......passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer more money than balance available through alias" time="0.021">
+    <testcase classname="Transferring money through alias" name="Cannot transfer more money than balance available through alias" time="0.015">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -425,7 +425,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer a negative amount through alias" time="0.019">
+    <testcase classname="Transferring money through alias" name="Cannot transfer a negative amount through alias" time="0.012">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -436,7 +436,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer a zero amount through alias" time="0.011">
+    <testcase classname="Transferring money through alias" name="Cannot transfer a zero amount through alias" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -447,7 +447,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer from one's account to the same one through alias" time="0.004">
+    <testcase classname="Transferring money through alias" name="Cannot transfer from one's account to the same one through alias" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -458,7 +458,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer with not related DNI through alias" time="0.004">
+    <testcase classname="Transferring money through alias" name="Cannot transfer with not related DNI through alias" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -469,7 +469,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer from non-existent account through alias" time="0.004">
+    <testcase classname="Transferring money through alias" name="Cannot transfer from non-existent account through alias" time="0.01">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -479,7 +479,7 @@ Then The operation should be denied.........................................pass
 And The sender account balance should remain 1000.0.........................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Cannot transfer to non-existent account through alias" time="0.003">
+    <testcase classname="Transferring money through alias" name="Cannot transfer to non-existent account through alias" time="0.016">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account CBU like 111122223...............................passed
@@ -489,7 +489,7 @@ Then The operation should be denied.........................................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through alias" name="Transaction record is not created if transfer through alias fails" time="0.006">
+    <testcase classname="Transferring money through alias" name="Transaction record is not created if transfer through alias fails" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -499,7 +499,7 @@ Then The operation should be denied.........................................pass
 Then A new transaction record, with id 1, should not be created.............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Successfully transfer money from one account to another through CBU" time="0.017">
+    <testcase classname="Transferring money through CBU" name="Successfully transfer money from one account to another through CBU" time="0.033">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -509,7 +509,7 @@ Then The sender account balance should be 900.0.............................pass
 And The receiver account balance should be 1100.0...........................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Successfully create a transaction record when carrying out a transfer through CBU" time="0.013">
+    <testcase classname="Transferring money through CBU" name="Successfully create a transaction record when carrying out a transfer through CBU" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -524,7 +524,7 @@ And Transaction with id 1 should have 123456789 as starter account CBU......pass
 And Transaction with id 1 should have 111222333 as target account CBU.......passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer more money than balance available through CBU" time="0.011">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer more money than balance available through CBU" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -535,7 +535,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer a negative amount through CBU" time="0.015">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer a negative amount through CBU" time="0.006">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -546,7 +546,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer a zero amount through CBU" time="0.031">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer a zero amount through CBU" time="0.009">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -557,7 +557,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer from one's account to the same one through CBU" time="0.016">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer from one's account to the same one through CBU" time="0.008">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -568,7 +568,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer with not related DNI through CBU" time="0.016">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer with not related DNI through CBU" time="0.01">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -579,7 +579,7 @@ And The sender account balance should remain 1000.0.........................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer from non-existent account through CBU" time="0.013">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer from non-existent account through CBU" time="0.006">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -589,7 +589,7 @@ Then The operation should be denied.........................................pass
 And The sender account balance should remain 1000.0.........................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Cannot transfer to non-existent account through CBU" time="0.012">
+    <testcase classname="Transferring money through CBU" name="Cannot transfer to non-existent account through CBU" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account CBU like 111122223...............................passed
@@ -599,7 +599,7 @@ Then The operation should be denied.........................................pass
 And The receiver account balance should remain 1000.0.......................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Transferring money through CBU" name="Transaction record is not created if transfer through CBU fails" time="0.012">
+    <testcase classname="Transferring money through CBU" name="Transaction record is not created if transfer through CBU fails" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A sender account with CBU 123456789, alias "iAmSender", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -609,7 +609,7 @@ Then The operation should be denied.........................................pass
 Then A new transaction record, with id 1, should not be created.............passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Successfully withdraw money through CBU when the balance is sufficient" time="0.015">
+    <testcase classname="Withdrawing money" name="Successfully withdraw money through CBU when the balance is sufficient" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -617,7 +617,7 @@ When I withdraw 300.0 from the account through CBU, with DNI 11222333.......pass
 Then The account balance should be 700.0....................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Successfully withdraw money through alias when the balance is sufficient" time="0.012">
+    <testcase classname="Withdrawing money" name="Successfully withdraw money through alias when the balance is sufficient" time="0.004">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -625,7 +625,7 @@ When I withdraw 300.0 from the account through alias, with DNI 11222333.....pass
 Then The account balance should be 700.0....................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Successfully create a transaction record when carrying out a withdrawal" time="0.012">
+    <testcase classname="Withdrawing money" name="Successfully create a transaction record when carrying out a withdrawal" time="0.006">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -639,7 +639,7 @@ And Transaction with id 1 should have 123456789 as starter account CBU......pass
 And Transaction with id 1 should have 123456789 as target account CBU.......passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Cannot withdraw more money than available balance" time="0.003">
+    <testcase classname="Withdrawing money" name="Cannot withdraw more money than available balance" time="0.004">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -648,7 +648,7 @@ Then The operation should be denied due to insufficient funds...............pass
 And The account balance should remain 1000.0................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Cannot withdraw a negative amount" time="0.003">
+    <testcase classname="Withdrawing money" name="Cannot withdraw a negative amount" time="0.004">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -657,7 +657,7 @@ Then The operation should be denied due to insufficient funds...............pass
 And The account balance should remain 1000.0................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Cannot withdraw a zero amount" time="0.004">
+    <testcase classname="Withdrawing money" name="Cannot withdraw a zero amount" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
@@ -666,7 +666,7 @@ Then The operation should be denied due to insufficient funds...............pass
 And The account balance should remain 1000.0................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Cannot withdraw from a non-existent account thorugh CBU" time="0.005">
+    <testcase classname="Withdrawing money" name="Cannot withdraw from a non-existent account thorugh CBU" time="0.007">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account CBU like 111122223...............................passed
@@ -674,7 +674,7 @@ When I try to withdraw 100.0 from the non-existent account through CBU, with DNI
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Cannot withdraw from a non-existent account thorugh alias" time="0.008">
+    <testcase classname="Withdrawing money" name="Cannot withdraw from a non-existent account thorugh alias" time="0.004">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And A non-existent account alias like "iAmNotAccount".......................passed
@@ -682,7 +682,7 @@ When I try to withdraw 100.0 from the non-existent account through alias, with D
 Then The operation should be denied.........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="Withdrawing money" name="Transaction record is not created if withdrawal fails" time="0.006">
+    <testcase classname="Withdrawing money" name="Transaction record is not created if withdrawal fails" time="0.005">
         <system-out><![CDATA[Given A new branch with name "Suc. Palermo" and address "Av. Lavalle 2500"..passed
 And A client with DNI 11222333, surname "Gregory", name "John", born on "1997-11-29" and with address "Av. Triunvitaro 557".passed
 And An account with CBU 123456789, alias "iAmAccount", balance of 1000.0, with client of DNI 11222333 as owner and created by branch 1.passed
