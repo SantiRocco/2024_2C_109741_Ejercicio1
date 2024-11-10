@@ -87,23 +87,22 @@ public class AccountSteps {
         }
     }
 
-    @When("I deposit {double} into the account through CBU")
-    public void depositIntoAccountThroughCbu(Double amount) {
-        system.deposit(account.getCbu(), amount);
-    }
-
-    @When("I deposit {double} into the account through alias")
-    public void depositIntoAccountThroughAlias(Double amount) {
-        system.deposit(account.getAlias(), amount);
-    }
-
-    @When("I deposit {double} into the account, on date {string}, at hour {string}")
-    public void depositIntoAccountWithDateAndHour(Double amount, String dateString, String hourString) {
+    @When("I deposit {double} into the account through CBU, on date {string}, at hour {string}")
+    public void depositIntoAccountWithDateAndHourThroughCbu(Double amount, String dateString, String hourString) {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(dateString, formatterDate);
         LocalTime hour = LocalTime.parse(hourString, DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         system.deposit(date, hour, account.getCbu(), amount);
+    }
+
+    @When("I deposit {double} into the account through alias, on date {string}, at hour {string}")
+    public void depositIntoAccountWithDateAndHourThroughAlias(Double amount, String dateString, String hourString) {
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(dateString, formatterDate);
+        LocalTime hour = LocalTime.parse(hourString, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        system.deposit(date, hour, account.getAlias(), amount);
     }
 
     @When("I try to deposit {double} into the account")
@@ -136,23 +135,22 @@ public class AccountSteps {
         }
     }
 
-    @When("I withdraw {double} from the account through CBU, with DNI {int}")
-    public void withdrawFromAccountThroughCbu(double amount, int dni) {
-        system.withdraw(dni, account.getCbu(), amount);
-    }
-
-    @When("I withdraw {double} from the account through alias, with DNI {int}")
-    public void withdrawFromAccountThroughAlias(double amount, int dni) {
-        system.withdraw(dni, account.getAlias(), amount);
-    }
-
-    @When("I withdraw {double} from the account, with DNI {int}, on date {string}, at hour {string}")
-    public void withdrwaFromAccountWithDateAndHour(Double amount, int dni, String dateString, String hourString) {
+    @When("I withdraw {double} from the account through CBU, with DNI {int}, on date {string}, at hour {string}")
+    public void withdrwaFromAccountWithDateAndHourThroughCbu(Double amount, int dni, String dateString, String hourString) {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(dateString, formatterDate);
         LocalTime hour = LocalTime.parse(hourString, DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         system.withdraw(date, hour, dni, account.getCbu(), amount);
+    }
+
+    @When("I withdraw {double} from the account through alias, with DNI {int}, on date {string}, at hour {string}")
+    public void withdrwaFromAccountWithDateAndHourThroughAlias(Double amount, int dni, String dateString, String hourString) {
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(dateString, formatterDate);
+        LocalTime hour = LocalTime.parse(hourString, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        system.withdraw(date, hour, dni, account.getAlias(), amount);
     }
 
     @When("I try to withdraw {double} from the account")
@@ -213,16 +211,6 @@ public class AccountSteps {
         } catch(Exception e) {
             operationResult = false;
         }
-    }
-
-    @When("I transfer {double} to the other account through CBU, with DNI {int}")
-    public void transferToOtherAccountThroughCbu(Double amount, int dni) {
-        system.transfer(dni, senderAccount.getCbu(), receiverAccount.getCbu(), amount);
-    }
-
-    @When("I transfer {double} to the other account through alias, with DNI {int}")
-    public void transferToOtherAccountThroughAlias(Double amount, int dni) {
-        system.transfer(dni, senderAccount.getAlias(), receiverAccount.getAlias(), amount);
     }
     
     @When("I transfer {double} to the other account through CBU, with DNI {int}, on date {string}, at hour {string}")

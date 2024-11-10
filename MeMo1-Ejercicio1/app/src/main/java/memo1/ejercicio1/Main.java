@@ -18,6 +18,17 @@ public class Main {
         LocalDate birthDate2 = LocalDate.of(2003, Month.JUNE, 15);
         system.addClient(20000000, "Garcia", "Manuel", birthDate2, "Av. Independencia 1564");
 
+        // Alta de un matrimonio
+        LocalDate marriageDate = LocalDate.of(2003, Month.MARCH, 4);
+        system.newMarriage(marriageDate, 12345678, 20000000);
+
+        // Imprimir detalles del matrimonio
+        System.out.println("El cliente 1 " + (system.isMarried(12345678) ? "sí" : "no") + " está casado");
+        System.out.println("El cliente 2 " + (system.isMarried(20000000) ? "sí" : "no") + " está casado");
+        System.out.println("El cliente 1 " + (system.getSpouseOfMarriedClientDni(12345678) == 20000000  ? "sí" : "no") + " está casado con el cliente 2");
+        System.out.println("El cliente 2 " + (system.getSpouseOfMarriedClientDni(20000000) == 12345678 ? "sí" : "no") + " está casado con el cliente 1");
+        System.out.println("El cliente 1 y 2 se casaron el día " + (system.getDateOfMarriage(20000000)).toString());
+
         // Crear una instancia de Account usando el constructor sin saldo inicial
         branch.createAccount(123456789L, "iAmAccount1", 12345678);
         Account account1 = system.getAccount("iAmAccount1");
